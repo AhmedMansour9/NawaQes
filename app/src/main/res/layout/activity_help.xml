@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    tools:context=".Activities.Help">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#30539b">
+        <ImageView
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo_lgin"
+            />
+
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_120sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:src="@drawable/icon_searchhelp"
+        android:id="@+id/img_help"
+        />
+
+    <TextView
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/img_help"
+        android:text="@string/typename"
+        android:textColor="#989898"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_128sdp"
+        />
+    <ImageView
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:src="@drawable/icon_maphelp"
+        android:id="@+id/img_maphelp"
+        android:layout_below="@+id/img_help"
+        />
+
+    <TextView
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/img_help"
+        android:text="@string/wewill"
+        android:textColor="#989898"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_55sdp"
+        android:layout_below="@+id/img_help"
+        />
+
+    <ImageView
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:src="@drawable/icon_help2"
+        android:id="@+id/img_maphelp2"
+        android:layout_below="@+id/img_maphelp"
+        />
+
+    <TextView
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/img_help"
+        android:text="@string/whenyoufind"
+        android:textColor="#989898"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_55sdp"
+        android:layout_below="@+id/img_maphelp"
+        />
+
+</RelativeLayout>

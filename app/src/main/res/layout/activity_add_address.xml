@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".Activities.Add_address">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        android:background="#30529a">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:src="@drawable/logo_lgin"
+                android:layout_centerInParent="true"
+                android:id="@+id/logo_login"
+                />
+
+
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textColor="#000000"
+        android:text="@string/choosesearcharea"
+        android:id="@+id/T_Choose"
+        />
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@+id/T_Choose"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:id="@+id/E_SearchPlace"
+        android:gravity="start"
+        android:background="@drawable/bc_edittext"
+        android:drawableEnd="@drawable/ic_search"
+        android:padding="@dimen/_10sdp"
+        android:hint="@string/search"
+        android:textColorHint="#193a7d"
+        android:textColor="#193a7d"
+        android:drawablePadding="@dimen/_10sdp"
+        android:singleLine="true"
+        android:paddingRight="20dp"
+        android:textStyle="italic"
+        android:popupBackground="#fff"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/bc_edittext"
+        android:layout_below="@+id/E_SearchPlace"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:textColorHint="#193a7d"
+        android:enabled="false"
+        android:drawableEnd="@drawable/icon_location"
+        android:paddingEnd="@dimen/_15sdp"
+        android:textColor="#193a7d"
+        android:hint="@string/location"
+        android:paddingStart="@dimen/_10sdp"
+        android:id="@+id/E_Location"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/bc_edittext"
+        android:layout_below="@+id/E_Location"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:textColorHint="#193a7d"
+        android:enabled="false"
+        android:drawableEnd="@drawable/icon_location"
+        android:paddingEnd="@dimen/_15sdp"
+        android:textColor="#193a7d"
+        android:hint="@string/area"
+        android:paddingStart="@dimen/_10sdp"
+        android:id="@+id/E_Area"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/bc_edittext"
+        android:layout_below="@+id/E_Area"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:textColorHint="#193a7d"
+        android:enabled="false"
+        android:drawableEnd="@drawable/icon_location"
+        android:paddingEnd="@dimen/_15sdp"
+        android:textColor="#193a7d"
+        android:hint="@string/area"
+        android:paddingStart="@dimen/_10sdp"
+        android:id="@+id/E_Street" />
+
+    <fragment
+        android:id="@+id/MAP"
+        android:layout_below="@+id/E_Street"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_height="match_parent"
+        />
+
+
+</RelativeLayout>

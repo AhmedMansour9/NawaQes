@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    tools:showIn="@layout/activity_home"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    android:id="@+id/sheetdirec"
+    app:behavior_hideable="true"
+    android:layout_gravity="bottom"
+    app:behavior_peekHeight="@dimen/_160sdp"
+    android:layout_height="@dimen/_160sdp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/bc_selectlocation"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:text="@string/selectlocation"
+        android:gravity="center"
+        android:id="@+id/T_Selectlocation"
+        android:textColor="#9d9e9e"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:layout_below="@+id/T_Selectlocation"
+        android:background="#88888a"
+        android:id="@+id/vieew"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_Sorts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@drawable/bc_recycle"
+        android:layout_below="@+id/vieew"
+        android:layout_above="@+id/T_Cancel"
+        android:layout_marginBottom="@dimen/_5sdp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/bc_cancel"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:text="@string/cancel"
+        android:gravity="center"
+        android:id="@+id/T_Cancel"
+        android:textAllCaps="false"
+        android:textColor="#10435f"
+        android:layout_alignParentBottom="true"
+        />
+
+
+</RelativeLayout>

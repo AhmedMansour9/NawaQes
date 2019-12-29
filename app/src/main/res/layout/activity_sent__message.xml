@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#224488"
+    tools:context=".Activities.Sent_Message">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/toolbar"
+        android:background="#224488">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/logo_lgin"
+                android:layout_centerInParent="true"
+                android:id="@+id/logo_login"
+                />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_170sdp"
+        android:id="@+id/Card"
+        android:layout_marginTop="@dimen/_100sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="2dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/bc_relative">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="#8d8d8d"
+                android:id="@+id/Title"
+                />
+
+        </RelativeLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:layout_marginTop="@dimen/_55sdp"
+            android:textColor="#000"
+            android:id="@+id/E_Messages"
+            android:background="@android:color/transparent"
+            android:hint="@string/msg"
+            android:textColorHint="#000"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            />
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_below="@+id/Card"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:text="@string/send"
+        android:id="@+id/Btn_Sent"
+        android:textAllCaps="false"
+        android:background="@drawable/item_btnview"
+        android:layout_marginBottom="@dimen/_10sdp"
+        />
+
+
+    <ImageView
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/ic_camera"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:layout_below="@+id/Card"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:id="@+id/Img_Camera"
+        />
+
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_below="@+id/Img_Camera"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:id="@+id/Img_ShowCamera"
+        />
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

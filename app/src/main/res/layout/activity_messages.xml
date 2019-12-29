@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Messages">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/toolbar"
+        android:background="#2a4c93">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/logo_lgin"
+                android:layout_centerInParent="true"
+                android:id="@+id/logo_login"
+                />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_below="@+id/toolbar"
+        android:weightSum="2"
+        android:id="@+id/Linear"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/bc_roundedcorners">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_37sdp"
+            android:text="@string/sent"
+            android:textColor="#fff"
+            android:background="@drawable/bc_select_search"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/T_Send"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_37sdp"
+            android:text="@string/inbox"
+            android:textColor="#848586"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:id="@+id/T_Inbox"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/SwipMessages"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@+id/Linear"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_sent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:scrollbars="horizontal" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_inbox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Linear"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:scrollbars="horizontal" />
+
+
+</RelativeLayout>

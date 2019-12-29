@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">NawaQes</string>
+    <string name="action_settings">Settings</string>
+    <string name="signin">Sign in</string>
+    <string name="signup">Sign up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgetyourpassword">Forget your password?</string>
+    <string name="or">OR</string>
+    <string name="face">LOGIN WITH FACEBOOK</string>
+    <string name="google">Continue with google</string>
+    <string name="nohaveanaccount">Don\'t have an account?</string>
+    <string name="alreadyhaveacc">Alreeady have an account?</string>
+    <string name="create">Create New Account</string>
+    <string name="fullname">Full Name</string>
+    <string name="findyourneed">Find your needs</string>
+    <string name="location">Location</string>
+    <string name="area">Area</string>
+    <string name="phone">Phone</string>
+    <string name="search">Search</string>
+    <string name="currentlocation">Current Location</string>
+    <string name="addanaddress">Add an Address</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string-array name="sorts">
+        <item>@string/currentlocation</item>
+        <item>@string/addanaddress</item>
+
+    </string-array>
+    <string name="selectlocation">Select Location</string>
+    <string name="choosesearcharea">Choose Search Area</string>
+    <string name="street">Street</string>
+    <string name="myrequests">My Requests</string>
+    <string name="offers">Offers</string>
+    <string name="typename">Type Name or description of thing you want</string>
+    <string name="wewill">We will find the nearest place have this thing</string>
+    <string name="whenyoufind">When you find your need you will messaging or call</string>
+    <string name="request">Request to </string>
+    <string name="seenby">Seen by </string>
+    <string name="view">View</string>
+    <string name="emailisused">Email is Already Exist</string>
+    <string name="wrongemailorpass">Wrong Email or Password</string>
+    <string name="nointernet">No Internet Connection</string>
+    <string name="chooselocation"> Location </string>
+    <string name="chossearea"> Area</string>
+    <string name="searchsub">Search Subcategory</string>
+    <string name="searchcat">Search Category</string>
+    <string name="yourmind">Hi, what on your mind ?</string>
+    <string name="type">Type a name or description and we will help you to search and find your need</string>
+    <string name="send">Send</string>
+    <string name="requestsent">Request Send Successfully</string>
+    <string name="requestto">Request to: </string>
+    <string name="acceptedby">Accepted by: </string>
+    <string name="date">Date: </string>
+    <string name="myrequestinfo">My Request Info</string>
+    <string name="images">Image</string>
+    <string name="viwers">Viewers </string>
+    <string name="descrption">Description</string>
+    <string name="theyhave">They Have your need</string>
+    <string name="sent">Sent</string>
+    <string name="inbox">Inbox</string>
+    <string name="replay">Replay</string>
+    <string name="selectimage">Select Image</string>
+    <string name="to">To : </string>
+    <string name="msg">Message</string>
+
+</resources>

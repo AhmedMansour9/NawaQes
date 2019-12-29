@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".Activities.Home">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/SwipHome"
+            android:layout_marginTop="@dimen/_170sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+         <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_Categroies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:scrollbars="horizontal" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180sdp"
+        android:background="@drawable/bc_home"
+        />
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:src="@drawable/logo_lgin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/logo_login"
+        />
+    <ImageView
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/icon_homeprofile"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:id="@+id/img_profile"
+        />
+
+    <ImageView
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:src="@drawable/icon_chat"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/Img_Msg"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/logo_login"
+        android:textColor="#fff"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:text="@string/findyourneed"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        android:id="@+id/find"
+        />
+
+    <RelativeLayout
+        android:layout_width="@dimen/_210sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/search_border"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/Rela"
+        android:layout_below="@+id/find"
+        >
+
+        <EditText
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:hint="@string/searchcat"
+            android:textColor="#CCCCCC"
+            android:background="@android:color/transparent"
+            android:paddingStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:textColorHint="#CCCCCC"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:id="@+id/E_Search"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_search"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:id="@+id/img_search"
+            />
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chooselocation"
+        android:layout_below="@+id/Rela"
+        android:layout_alignStart="@+id/Rela"
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:id="@+id/T_Location"
+        />
+    <ImageView
+        android:layout_width="@dimen/_10sdp"
+        android:layout_height="@dimen/_10sdp"
+        android:src="@drawable/icon_dropdown"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_below="@+id/Rela"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_toEndOf="@+id/T_Location"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chossearea"
+            android:layout_below="@+id/Rela"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:id="@+id/T_Area"
+            android:layout_toStartOf="@+id/img_area"
+            />
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/icon_dropdown"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_below="@+id/Rela"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_alignEnd="@+id/Rela"
+            android:id="@+id/img_area"
+            android:layout_marginEnd="@dimen/_10sdp"
+            />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#616161"
+            android:alpha=".4"
+            android:id="@+id/Frame_Alpha"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+
+    <include layout="@layout/sortlocation" />
+    <include layout="@layout/sortarea"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
