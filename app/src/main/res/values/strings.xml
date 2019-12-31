@@ -63,5 +63,23 @@
     <string name="selectimage">Select Image</string>
     <string name="to">To : </string>
     <string name="msg">Message</string>
+    <string name="editinfo">Edit your Info</string>
+    <string name="logout">Logout</string>
+    <string name="english">English</string>
+    <string name="arabic">عربي</string>
+    <string name="language">Language</string>
+    <string name="edit">Edit</string>
+    <string name="updatesuccess">Information updated success</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="selectoption">Select Option</string>
+    <string name="selectallery">Select photo from gallery</string>
+    <string name="capturephoto">Capture photo from camera</string>
+    <string name="validemail">Please enter a valid email address</string>
+    <string name="feildempty">Field can\'t be empty</string>
+    <string name="pasweak">Password too weak</string>
+    <string name="selectarea">Select Area</string>
+    <string name="validcity">Please Select City</string>
+    <string name="validarea">Please Select Area</string>
+    <string name="validcityamdarea">Please Select City And Area</string>
 
 </resources>

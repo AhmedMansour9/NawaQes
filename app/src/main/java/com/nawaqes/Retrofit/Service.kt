@@ -20,7 +20,7 @@ interface Service {
 
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("customer/cities")
-    fun getCities(@Header("Authorization")auth:String): Call<Cities_Response>
+    fun getCities(@Header("X-localization")auth:String): Call<Cities_Response>
 
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("customer/categories")
@@ -76,6 +76,10 @@ interface Service {
     fun getRequests(@Header("Authorization")auth:String,@Header("X-localization")lang:String): Call<Requests_Shortlists_Response>
 
     @Headers("Content-Type: application/json;charset=UTF-8")
+    @POST("customer/updateFirebaseToken")
+    fun SentToken(@QueryMap map:Map<String,String>,@Header("Authorization")auth:String): Call<SentMessage_Response>
+
+    @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("customer/get_shops_that_accept_the_shortlist")
     fun getCustomRequests(@QueryMap map:Map<String,String>,@Header("Authorization")auth:String,@Header("X-localization")lang:String): Call<DetailsShortlists_Response>
 
@@ -94,9 +98,15 @@ interface Service {
     fun SentMessage(@Part img:MultipartBody.Part?, @Part("message") description:RequestBody,@Part("shop_id") id:RequestBody,
                  @Header("Authorization")auth:String): Call<SentMessage_Response>
 
+    @Multipart
+    @POST("customer/editProfile")
+    fun EditProfile(@Part img:MultipartBody.Part?, @Part("email") email:RequestBody,@Part("phone") phone:RequestBody,
+                    @Part("full_name") full_name:RequestBody,    @Header("Authorization")auth:String): Call<EditProfile_Response>
+
+
 
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("customer/states")
-    fun getStates(@QueryMap map:Map<String,String>,@Header("Authorization")auth:String): Call<Cities_Response>
+    fun getStates(@QueryMap map:Map<String,String>,@Header("X-localization")auth:String): Call<Cities_Response>
 
 }

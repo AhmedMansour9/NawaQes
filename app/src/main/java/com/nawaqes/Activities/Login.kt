@@ -16,12 +16,18 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.nawaqes.Model.Register_Model
 import com.nawaqes.R
 import com.nawaqes.ViewModel.Register_ViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.Btn_login
 import kotlinx.android.synthetic.main.activity_register.*
+import java.util.*
 import java.util.regex.Pattern
 import kotlinx.android.synthetic.main.activity_login.progressBarLogin as progressBarLogin1
 
@@ -31,6 +37,7 @@ class Login : AppCompatActivity() {
                 ".{5,}"                //at least 4 characters
     )
     private lateinit var dataSaver: SharedPreferences
+    private var callbackManager: CallbackManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +46,35 @@ class Login : AppCompatActivity() {
 
         openRegister()
         openHome()
+        LoginFacebook()
         EditText_Changer(text_input_password_login.editText!!)
         EditText_Changer(text_input_email_login.editText!!)
+    }
+
+    private fun LoginFacebook() {
+//        Btn_Face.setOnClickListener(View.OnClickListener {
+//            // Login
+//            callbackManager = CallbackManager.Factory.create()
+//            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
+//            LoginManager.getInstance().registerCallback(callbackManager,
+//                object : FacebookCallback<LoginResult> {
+//                    override fun onSuccess(loginResult: LoginResult) {
+////                        Log.d("MainActivity", "Facebook token: " + loginResult.accessToken.token)
+//
+////                        startActivity(Intent(applicationContext, AuthenticatedActivity::class.java))
+//                    }
+//
+//                    override fun onCancel() {
+////                        Log.d("MainActivity", "Facebook onCancel.")
+//
+//                    }
+//
+//                    override fun onError(error: FacebookException) {
+////                        Log.d("MainActivity", "Facebook onError.")
+//
+//                    }
+//                })
+//        })
     }
 
     fun openRegister(){
@@ -48,7 +82,6 @@ class Login : AppCompatActivity() {
             T_Signup.isEnabled=false
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
-            finish()
         }
     }
     fun openHome(){
@@ -101,11 +134,11 @@ class Login : AppCompatActivity() {
     private fun ValidateEmailLogin():Boolean{
         val Fullname=text_input_email_login.editText!!.text.toString()
         if(Fullname.isEmpty()){
-            text_input_email_login.error="Field can't be empty"
+            text_input_email_login.error=resources.getString(R.string.feildempty)
             return false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(Fullname).matches()) run {
             text_input_email_login.error =
-                "Please enter a valid email address"
+                resources.getString(R.string.validemail)
             return false
         }
         else {
@@ -117,7 +150,7 @@ class Login : AppCompatActivity() {
     private fun ValidatePasswordLogin():Boolean{
         val Fullname=text_input_password_login.editText!!.text.toString()
         if(Fullname.isEmpty()){
-            text_input_password_login.error="Field can't be empty"
+            text_input_password_login.error=resources.getString(R.string.feildempty)
             return false
         } else if (!PASSWORD_PATTERN.matcher(Fullname).matches()) run {
             text_input_password_login.error =
@@ -171,5 +204,9 @@ class Login : AppCompatActivity() {
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        callbackManager?.onActivityResult(requestCode, resultCode, data)
+    }
 }

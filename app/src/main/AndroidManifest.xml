@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.nawaqes">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,7 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.History_Messages"></activity>
+        <activity android:name=".Activities.Edit_Profile"></activity>
+        <activity android:name=".Activities.History_Messages" />
         <activity android:name=".Activities.Sent_Message" />
         <activity android:name=".Activities.Messages" />
         <activity android:name=".Activities.Request_Details" />
@@ -36,7 +38,6 @@
         <activity android:name=".Activities.SubCategories" />
         <activity android:name=".Activities.Help" />
         <activity android:name=".Activities.Profile" />
-        <activity android:name=".Activities.Add_address" />
         <activity android:name=".Activities.Home" />
         <activity android:name=".Activities.Register" />
         <activity android:name=".Activities.Login" />
@@ -57,6 +58,33 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+
+
+
+
+        <service android:name=".MyFirebaseInstanceIDService"
+            android:exported="false">
+            <intent-filter>
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+
+        <service android:name=".MyFirebaseMessaging">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

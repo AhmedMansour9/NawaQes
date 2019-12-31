@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">نواقص</string>
+    <string name="action_settings">Settings</string>
+    <string name="signin">تسجيل دخول</string>
+    <string name="signup">انشاء حساب</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="password">الرقم السري </string>
+    <string name="forgetyourpassword">هل نسيت الرقم السري ؟</string>
+    <string name="or">أو</string>
+    <string name="face">تسجيل بالفيس بوك</string>
+    <string name="google">تسجيل بجوجل</string>
+    <string name="nohaveanaccount">لا يوجد لديك حساب ؟</string>
+    <string name="alreadyhaveacc">هل لديك حساب؟</string>
+    <string name="create">انشاء حساب جديد</string>
+    <string name="fullname">الاسم كامل</string>
+    <string name="findyourneed">ابحث عن احتياجاتك</string>
+    <string name="location">موقع</string>
+    <string name="area">منطقة</string>
+    <string name="phone">رقم الموبايل</string>
+    <string name="search">ابحث</string>
+    <string name="currentlocation">الموقع الحالي</string>
+    <string name="addanaddress">Add an Address</string>
+    <string name="confirm">تأكيد</string>
+    <string name="cancel">الغاء</string>
+    <string-array name="sorts">
+        <item>@string/currentlocation</item>
+        <item>@string/addanaddress</item>
+
+    </string-array>
+    <string name="selectlocation">أختر الموقع </string>
+    <string name="choosesearcharea">Choose Search Area</string>
+    <string name="street">الشارع</string>
+    <string name="myrequests">طلباتي</string>
+    <string name="offers">العروض</string>
+    <string name="typename">اكتب اسم أو وصف الشيء الذي تريده</string>
+    <string name="wewill">سوف نجد اقرب مكان لك يتيح لك هذا الشئ</string>
+    <string name="whenyoufind">عندما تجد حاجتك سوف تقوم بالرسائل أو الاتصال</string>
+    <string name="request">طلب الي  </string>
+    <string name="seenby">تمت رؤيته بواسطة </string>
+    <string name="view">عرض</string>
+    <string name="emailisused">البريد الإلكتروني موجود بالفعل</string>
+    <string name="wrongemailorpass">البريد الإلكتروني أو كلمة المرور خاطئة</string>
+    <string name="nointernet">لا يوجد اتصال إنترنت</string>
+    <string name="chooselocation"> موقع </string>
+    <string name="chossearea"> منطقة</string>
+    <string name="searchsub">بحث الفئة الفرعية</string>
+    <string name="searchcat">بحث الفئة</string>
+    <string name="yourmind">مرحبا ، ماذا في عقلك؟</string>
+    <string name="type">اكتب اسمًا أو وصفًا وسنساعدك في البحث عن حاجتك والبحث عنها</string>
+    <string name="send">ارسل</string>
+    <string name="requestsent">تم ارسال الطلب بنجاح</string>
+    <string name="requestto">طلب الي :  </string>
+    <string name="acceptedby">قبلت من طرف : </string>
+    <string name="date">تاريخ :  </string>
+    <string name="myrequestinfo">معلومات طلبي</string>
+    <string name="images">صورة</string>
+    <string name="viwers">مشاهدين </string>
+    <string name="descrption">تفاصيل</string>
+    <string name="theyhave">لديهم ما تحتاج</string>
+    <string name="sent">أرسلت</string>
+    <string name="inbox">البريد الوارد</string>
+    <string name="replay">إعادة</string>
+    <string name="selectimage">Select Image</string>
+    <string name="to">الي :  </string>
+    <string name="msg">رسالة</string>
+    <string name="editinfo">تحرير المعلومات الخاصة بك</string>
+    <string name="logout">تسجيل خروج</string>
+    <string name="english">English</string>
+    <string name="arabic">عربي</string>
+    <string name="language">اللغة</string>
+    <string name="edit">تعديل </string>
+    <string name="updatesuccess">تحديث المعلومات النجاح</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="selectoption">أختر بينهم</string>
+    <string name="selectallery">اختر صورة من المعرض</string>
+    <string name="capturephoto">التقاط الصور من الكاميرا</string>
+    <string name="validemail">رجاء قم بإدخال بريد الكتروني صحيح</string>
+    <string name="feildempty">لا يمكن أن يكون الحقل فارغًا</string>
+    <string name="pasweak">كلمة مرور ضعيفة جدا</string>
+    <string name="selectarea">اختر المنطقة</string>
+    <string name="validcity">من فضلك اختر المدينة</string>
+    <string name="validarea">من فضلك اختر المنطقة</string>
+    <string name="validcityamdarea">من فضلك اختر المدينة والمنطقة</string>
+
+</resources>

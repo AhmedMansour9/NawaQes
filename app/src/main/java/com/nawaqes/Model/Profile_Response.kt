@@ -46,6 +46,8 @@ data class Profile_Response(
         @SerializedName("state_id")
         val stateId: String,
         @SerializedName("updated_at")
-        val updatedAt: String
+        val updatedAt: String,
+        @SerializedName("image_path")
+        val image_path:String
     ) : Parcelable
 }

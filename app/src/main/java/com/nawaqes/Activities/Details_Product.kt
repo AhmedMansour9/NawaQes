@@ -79,7 +79,7 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
         getSlider()
         Choose_Image()
         Send_Request()
-        setupPermissions()
+//        setupPermissions()
         openHelp()
 
     }

@@ -20,8 +20,8 @@ data class Cities_Response(
     @Parcelize
     data class Data(
         @SerializedName("id")
-        val id: Int,
+        var id: Int,
         @SerializedName("name")
-        val name: String
+        var name: String
     ) : Parcelable
 }

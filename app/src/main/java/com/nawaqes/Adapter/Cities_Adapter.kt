@@ -10,6 +10,10 @@ import com.nawaqes.Model.Cities_Response
 import com.nawaqes.R
 import kotlinx.android.synthetic.main.custom_spinner_items.view.*
 
+
+
+
+
 class Cities_Adapter(
     val applicationContext: Context,
    val data: List<Cities_Response.Data>
@@ -21,7 +25,9 @@ class Cities_Adapter(
     }
 
     override fun getCount(): Int {
-        return data.size
+
+        return if (data.size > 0) data.size - 1 else data.size
+
     }
 
     override fun getItem(position: Int): Any {

@@ -2,6 +2,7 @@ package com.nawaqes.Activities
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,17 +19,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.nawaqes.Adapter.Categories_Adapter
 import com.nawaqes.Adapter.Cities_Adapter
 import com.nawaqes.Adapter.SortsArea_Adapter
 import com.nawaqes.Model.Categories_Response
 import com.nawaqes.Model.Cities_Response
 import com.nawaqes.Model.CountNotifications_Response
+import com.nawaqes.Model.SentMessage_Response
+import com.nawaqes.SharedPrefManager
 import com.nawaqes.View.Locationid_View
-import com.nawaqes.ViewModel.Categories_ViewModel
-import com.nawaqes.ViewModel.Cities_ViewModel
-import com.nawaqes.ViewModel.CountNotifications_ViewModel
-import com.nawaqes.ViewModel.States_ViewModel
+import com.nawaqes.ViewModel.*
 import kotlinx.android.synthetic.main.activity_details__product.*
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.sortarea.*
@@ -43,11 +45,13 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
     private lateinit var bottomSheetAreaBehavior: BottomSheetBehavior<RelativeLayout>
     var  sheetdirec:RelativeLayout?=null
     var  sheetdArea:RelativeLayout?=null
-
+    internal lateinit var shared: SharedPreferences
+     var tokenfirebae:String?=String()
     lateinit var T_Cancel: TextView
     var recycler_Sort: RecyclerView?=null
     lateinit var DeviceLang:String
     lateinit var UserToken: String
+    var Location_Status=false
     companion object {
          var CityId:String?=null
          var StateId: String?=null
@@ -59,9 +63,22 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        shared = getSharedPreferences("Language", MODE_PRIVATE)
+        val Lan = shared.getString("Lann", null)
+        if (Lan != null) {
+            val locale = Locale(Lan!!)
+            Locale.setDefault(locale)
+            val config = Configuration()
+            config.locale = locale
+            baseContext.resources.updateConfiguration(
+                config,
+                baseContext.resources.displayMetrics
+            )
+        }
         setContentView(R.layout.activity_home)
         Language()
         init()
+        getTokenFirebase()
         getCategories()
         ButtonSheet()
         openSort()
@@ -72,8 +89,33 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         cancelArea()
         Search()
         openMessages()
+        SentToken()
 
 
+    }
+
+    private fun getTokenFirebase() {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val tokens = task.result?.token
+
+                SharedPrefManager.getInstance(applicationContext).saveDeviceToken(tokens)
+            })
+    }
+
+    private fun SentToken() {
+        val tokenn = ViewModelProvider.NewInstanceFactory().create(SentToken_ViewModel::class.java)
+        this.applicationContext?.let {
+            tokenn.Requests(tokenfirebae,UserToken, it)?.observe(this, Observer<SentMessage_Response> { loginmodel ->
+                if(loginmodel!=null) {
+
+                }
+            })
+        }
     }
 
     private fun openMessages() {
@@ -120,8 +162,8 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         SwipHome.post(Runnable {
             getAllCities()
             getCategories()
-
-
+            getNewNotification()
+            getNewMessage()
         })
     }
 
@@ -129,7 +171,7 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
 
         val allCities = ViewModelProvider.NewInstanceFactory().create(Cities_ViewModel::class.java)
         this.applicationContext?.let {
-            allCities.getData( it)?.observe(this, Observer<Cities_Response> { loginmodel ->
+            allCities.getData( DeviceLang,it).observe(this, Observer<Cities_Response> { loginmodel ->
                 SwipHome.isRefreshing=false
                 if(loginmodel!=null) {
                     val listAdapter = SortsLocation_Adapter(this.applicationContext, loginmodel.data)
@@ -148,7 +190,7 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
     fun getAllStates(Id:String){
         val allCities = ViewModelProvider.NewInstanceFactory().create(States_ViewModel::class.java)
         this.applicationContext?.let {
-            allCities.getData( Id,it)?.observe(this, Observer<Cities_Response> { loginmodel ->
+            allCities.getData( Id,DeviceLang,it).observe(this, Observer<Cities_Response> { loginmodel ->
                 SwipHome.isRefreshing=false
                 if(loginmodel!=null) {
                     bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
@@ -174,13 +216,28 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
                 CountNotifications_ViewModel::class.java)
             notifications.getNewNotifications(UserToken, it).observe(this, Observer<CountNotifications_Response> { loginmodel ->
                 if(loginmodel!=null) {
-
+                    if(loginmodel.data!=0)
+                    T_Notifications.visibility=View.VISIBLE
+                T_Notifications.text=loginmodel.data.toString()
                 }
 
             })
         }
     }
+    private fun getNewMessage() {
+        this.applicationContext?.let {
+            notifications= ViewModelProvider.NewInstanceFactory().create(
+                CountNotifications_ViewModel::class.java)
+            notifications.getNewNotifications(UserToken, it).observe(this, Observer<CountNotifications_Response> { loginmodel ->
+                if(loginmodel!=null) {
+                    if(loginmodel.data!=0)
+                T_Messages.visibility=View.VISIBLE
+                T_Messages.text=loginmodel.data.toString()
+                }
 
+            })
+        }
+    }
 
     private fun getCategories() {
         this.applicationContext?.let {
@@ -206,6 +263,9 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         T_Cancel=findViewById(R.id.T_Cancel)
         recycler_Sort=findViewById(R.id.recycler_Sorts);
         DataSaver = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        tokenfirebae=SharedPrefManager.getInstance(this).deviceToken
+//        Toast.makeText(this,tokenfirebae,Toast.LENGTH_LONG).show()
+
         UserToken = DataSaver.getString("token", null)!!
         categories= ViewModelProvider.NewInstanceFactory().create(
             Categories_ViewModel::class.java)
@@ -219,15 +279,20 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         }
     }
 
-    fun openSortArea(){
+    fun openSortArea() {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         T_Area.setOnClickListener() {
-            if (bottomSheetAreaBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
-                bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
-                Frame_Alpha.visibility=View.VISIBLE
+            if (Location_Status) {
+                if (bottomSheetAreaBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+                    Frame_Alpha.visibility = View.VISIBLE
+                } else {
+                    Frame_Alpha.visibility = View.GONE
+                    bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+                }
             } else {
-                Frame_Alpha.visibility=View.GONE
-                bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+                Toast.makeText(this, resources.getString(R.string.validcity), Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
@@ -266,8 +331,14 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
 
 
     fun Language() {
-        DeviceLang = Locale.getDefault().language
-    }
+        shared = getSharedPreferences("Language", MODE_PRIVATE)
+        val Lan = shared.getString("Lann", null)
+        if(Lan!=null){
+            DeviceLang = Lan
+        }else {
+            DeviceLang = Locale.getDefault().language
+
+        }    }
 
     override fun Areaid(id: String,Name:String) {
         StateId=id
@@ -277,6 +348,7 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
     }
 
     override fun CityId(id: String,Name:String) {
+        Location_Status=true
         CityId=id
         T_Location.text=Name
         getAllStates(id)
@@ -288,6 +360,8 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
     override fun onRefresh() {
         getAllCities()
         getCategories()
+        getNewNotification()
+        getNewMessage()
     }
     override fun Cat_id(categorieid: Int,id:Int,cat_name:String) {
         if(CityId!=null&& StateId!=null){
@@ -308,4 +382,6 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         }
 
     }
+
+
 }

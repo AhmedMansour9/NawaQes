@@ -13,6 +13,7 @@
         android:paddingTop="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp"
         android:textColor="#193a7d"
+
         />
 
 

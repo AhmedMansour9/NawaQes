@@ -13,10 +13,11 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp"
+        android:layout_height="@dimen/_220sdp"
         android:background="@drawable/bc_home"
         android:id="@+id/logo"
         />
+
 
     <ImageView
         android:layout_width="@dimen/_150sdp"
@@ -27,7 +28,14 @@
         android:id="@+id/logo_login"
         />
 
-
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_below="@+id/logo_login"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/emptyprofile"
+            android:id="@+id/Img_Profile"
+            />
     <ImageView
         android:layout_width="@dimen/_23sdp"
         android:layout_height="@dimen/_22sdp"
@@ -35,13 +43,14 @@
         android:src="@drawable/icon_setting"
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_alignParentEnd="true"
+        android:id="@+id/Img_Setting"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_below="@+id/logo_login"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_below="@+id/Img_Profile"
         android:textColor="#fff"
         android:textSize="@dimen/_16sdp"
         android:textStyle="bold"

@@ -1,5 +1,6 @@
 package com.nawaqes.Activities
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.nawaqes.Adapter.*
 import com.nawaqes.Model.*
@@ -46,6 +48,14 @@ class Profile : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener , Loc
         Selected_Tabs()
         SwipRefresh()
         openSort()
+        openEditProfile()
+    }
+
+    private fun openEditProfile() {
+        Img_Setting.setOnClickListener(){
+            val intent = Intent(this, Edit_Profile::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showInfo() {
@@ -56,6 +66,10 @@ class Profile : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener , Loc
                     if(loginmodel!=null) {
                         Title.text=loginmodel.data.fullName
                         Email.text=loginmodel.data.email
+                        Glide.with(this)
+                            .load(loginmodel.data.image_path)
+                            .into(Img_Profile)
+
                     }
                 })
         }
@@ -240,6 +254,11 @@ class Profile : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener , Loc
 
     override fun Cat_id(CatId: Int, categories: Int, cat_name: String) {
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showInfo()
     }
 
 

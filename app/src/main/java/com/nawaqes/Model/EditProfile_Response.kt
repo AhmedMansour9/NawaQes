@@ -8,9 +8,9 @@ import android.os.Parcelable
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class CountNotifications_Response(
+data class EditProfile_Response(
     @SerializedName("data")
-    val `data`: Int,
+    val `data`: String,
     @SerializedName("message")
     val message: String,
     @SerializedName("success")
