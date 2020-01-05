@@ -4,6 +4,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,7 +43,70 @@ class SubCategories : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener
         getData()
         SwipRefresh()
         Search()
+        SearchKeyBoard()
+        EditSearchChanger()
+        
+    }
+    private fun SearchKeyBoard() {
+        E_Search_sub.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                doSearchWork()
+            }
+            true
+        }
+    }
 
+    private fun doSearchWork() {
+        if(!E_Search_sub.text.toString().isEmpty())
+            SwipHome.isRefreshing=true
+        SearchResult()
+    }
+    private  fun EditSearchChanger(){
+        E_Search_sub.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if(s.isEmpty()){
+                    getSubCategories()
+                }else {
+                    SearchResult()
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+
+
+            }
+        })
+
+    }
+
+    fun SearchResult(){
+        this.applicationContext?.let {
+            subCategories.SearchSubCategories(subCategoris.toString(),E_Search_sub.text.toString(),UserToken,DeviceLang, it).observe(this, Observer<SubCategories_Response> { loginmodel ->
+                SwipHome.isRefreshing=false
+
+                if(loginmodel!=null) {
+                    val listAdapter =
+                        SubCategories_Adapter(applicationContext, loginmodel.data)
+//                    listAdapter.onClick(this)
+                    recycler_Categroies.layoutManager = LinearLayoutManager(
+                        applicationContext,
+                        LinearLayoutManager.VERTICAL,
+                        false
+                    )
+                    recycler_Categroies.setAdapter(listAdapter)
+                }
+            })
+        }
     }
 
     fun SwipRefresh(){
@@ -60,26 +126,7 @@ class SubCategories : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener
     }
     private fun Search() {
         img_search_sub.setOnClickListener(){
-            if(!E_Search_sub.text.toString().isEmpty())
-                SwipHome.isRefreshing=true
-
-            this.applicationContext?.let {
-                subCategories.SearchSubCategories(subCategoris.toString(),E_Search_sub.text.toString(),UserToken,DeviceLang, it).observe(this, Observer<SubCategories_Response> { loginmodel ->
-                    SwipHome.isRefreshing=false
-
-                    if(loginmodel!=null) {
-                        val listAdapter =
-                            SubCategories_Adapter(applicationContext, loginmodel.data)
-//                    listAdapter.onClick(this)
-                        recycler_Categroies.layoutManager = LinearLayoutManager(
-                            applicationContext,
-                            LinearLayoutManager.VERTICAL,
-                            false
-                        )
-                        recycler_Categroies.setAdapter(listAdapter)
-                    }
-                })
-            }
+         doSearchWork()
         }
     }
 

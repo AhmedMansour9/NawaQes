@@ -33,7 +33,6 @@
             android:layout_height="@dimen/_100sdp"
             android:layout_below="@+id/logo_login"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/emptyprofile"
             android:id="@+id/Img_Profile"
             />
     <ImageView

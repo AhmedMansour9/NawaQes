@@ -34,7 +34,7 @@ class EditProfile_ViewModel :ViewModel() {
 
         val requestDEmail= RequestBody.create(MediaType.parse("multipart/form-data"),email)
         val requestPhone= RequestBody.create(MediaType.parse("multipart/form-data"),phone)
-        val requestName= RequestBody.create(MediaType.parse("multipart/form-data"),phone)
+        val requestName= RequestBody.create(MediaType.parse("multipart/form-data"),full_name)
 
         if(filename!=null){
             val requestFile= RequestBody.create(MediaType.parse("multipart/form-data"),filename)

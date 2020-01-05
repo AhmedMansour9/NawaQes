@@ -39,6 +39,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.nawaqes.Model.AddRequest_Response
 import com.nawaqes.Model.Register_Model
 import com.nawaqes.ViewModel.AddReques_ViewModel
@@ -203,8 +204,8 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
 
     private fun showPictureDialog() {
         val pictureDialog = AlertDialog.Builder(this)
-        pictureDialog.setTitle("Select Action")
-        val pictureDialogItems = arrayOf("Select photo from gallery", "Capture photo from camera")
+        pictureDialog.setTitle(resources.getString(R.string.selectoption))
+        val pictureDialogItems = arrayOf(resources.getString(R.string.selectallery), resources.getString(R.string.capturephoto))
         pictureDialog.setItems(pictureDialogItems
         ) { dialog, which ->
             when (which) {
@@ -216,6 +217,9 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
     }
 
     fun choosePhotoFromGallary() {
+//        val galleryIntent = Intent(Intent.ACTION_PICK)
+//        galleryIntent.setType("image/*");
+//        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         val galleryIntent = Intent(Intent.ACTION_PICK,
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
@@ -233,28 +237,27 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
          {
          return
          }*/
-        if (requestCode == GALLERY)
-        {
-            if (data != null)
-            {
-                val contentURI = data!!.data
-                val filePath = getRealPathFromURIPath(contentURI!!, this@Details_Product)
-                 file = File(filePath)
-//                Toast.makeText(this@Details_Product, file.name+"", Toast.LENGTH_SHORT).show()
+        if (resultCode == RESULT_OK && null != data) {
 
-                try
-                {
-                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    val path = saveImage(bitmap)
-//                    Toast.makeText(this@Details_Product, path+"", Toast.LENGTH_SHORT).show()
-                    Img_ShowCamera!!.setImageBitmap(bitmap)
+            if (requestCode == GALLERY) {
+                if (data != null) {
+                    val contentURI = data!!.data
+                    val filePath = getRealPathFromURIPath(contentURI!!, this@Details_Product)
+                    file = File(filePath)
+                    Glide.with(this).load("file:" + file).into(Img_ShowCamera);
+
+
+//                    try {
+//                        val bitmap =
+//                            MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+//                        val path = saveImage(bitmap)
+////                    Img_ShowCamera!!.setImageBitmap(bitmap)
+//
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
 
                 }
-                catch (e: IOException) {
-                    e.printStackTrace()
-//                    Toast.makeText(this@Details_Product, "Failed!", Toast.LENGTH_SHORT).show()
-                }
-
             }
 
         }
@@ -268,13 +271,15 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
     }
 
     private fun getRealPathFromURIPath(contentURI: Uri, activity: Activity): String {
-        val cursor = activity.contentResolver.query(contentURI, null, null, null, null)
+        val filePathColumn=arrayOf(MediaStore.Images.Media.DATA )
+        val cursor = activity.contentResolver.query(contentURI,filePathColumn, null, null, null, null)
         if (cursor == null) {
             return contentURI.getPath()!!
         } else {
             cursor.moveToFirst()
-            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            val idx = cursor.getColumnIndex(filePathColumn[0])
             return cursor.getString(idx)
+
         }
     }
     fun saveImage(myBitmap: Bitmap):String {

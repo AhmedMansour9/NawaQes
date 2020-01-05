@@ -122,6 +122,8 @@
             android:layout_marginTop="@dimen/_55sdp"
             android:textColor="#000"
             android:id="@+id/E_Message"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
             android:background="@android:color/transparent"
 
             />

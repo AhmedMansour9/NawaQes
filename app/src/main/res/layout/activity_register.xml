@@ -41,27 +41,39 @@
         android:text="@string/findyourneed"
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
-
         />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fullname"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/logo"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/full_name"
+                />
             <com.nawaqes.NoChangingBackgroundTextInputLayout
                 android:id="@+id/text_input_name_register"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="@dimen/_49sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textColorHint="#bcbcbc"
                 android:textColor="#bcbcbc"
                 app:hintEnabled="false"
                 app:boxBackgroundColor="@android:color/transparent"
                 app:boxBackgroundMode="none"
                 android:background="@android:color/transparent"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_below="@+id/logo"
+                app:errorTextAppearance="@style/error_appearance"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_below="@+id/full_name"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="@dimen/_35sdp"
                     android:background="@drawable/bc_edittext"
                     android:hint="@string/fullname"
                     android:gravity="center_vertical"
@@ -71,31 +83,43 @@
                     android:textColor="#193a7d"
                     android:drawableEnd="@drawable/icon_name"
                     android:paddingEnd="@dimen/_15sdp"
+
                     android:drawablePadding="@dimen/_10sdp"
                     android:textColorHint="#193a7d"
                     android:id="@+id/E_Full_Name"
                     android:inputType="text" />
             </com.nawaqes.NoChangingBackgroundTextInputLayout>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/text_input_name_register"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/phone"
+                />
 
             <com.nawaqes.NoChangingBackgroundTextInputLayout
                 android:id="@+id/text_input_phone_register"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_height="@dimen/_49sdp"
                 android:textColorHint="#193a7d"
                 android:textColor="#193a7d"
                 app:hintEnabled="false"
-                android:layout_below="@+id/text_input_name_register"
+                app:errorTextAppearance="@style/error_appearance"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_below="@+id/phone"
                 app:boxBackgroundColor="@android:color/transparent"
                 app:boxBackgroundMode="none"
                 android:background="@android:color/transparent"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
                 app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:background="@drawable/bc_edittext"
                 android:hint="@string/phone"
                 android:gravity="center_vertical"
@@ -110,45 +134,83 @@
                 android:inputType="number" />
             </com.nawaqes.NoChangingBackgroundTextInputLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/city"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/text_input_phone_register"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/city"
+                />
 
             <Spinner
                 android:id="@+id/S_Area"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:background="@drawable/gradient_spinner"
-                android:layout_below="@+id/text_input_phone_register"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_below="@+id/city"
                 android:prompt="@string/edit"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/area"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/S_Area"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/area"
+                android:visibility="gone"
                 />
             <Spinner
                 android:id="@+id/S_Location"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:background="@drawable/gradient_spinner"
-                android:layout_below="@+id/S_Area"
+                android:layout_below="@+id/area"
                 android:prompt="@string/edit"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:visibility="gone"
+               android:layout_marginBottom="@dimen/_5sdp"
+                app:errorTextAppearance="@style/error_appearance"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/S_Location"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/email"
                 />
 
             <com.nawaqes.NoChangingBackgroundTextInputLayout
                 android:id="@+id/text_input_email_register"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_height="@dimen/_49sdp"
                 android:textColorHint="#193a7d"
+                app:errorTextAppearance="@style/error_appearance"
                 android:textColor="#193a7d"
                 app:hintEnabled="false"
                 android:layout_below="@+id/S_Location"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="@dimen/_35sdp"
                     android:background="@drawable/bc_edittext"
                     android:hint="@string/email"
                     android:gravity="center_vertical"
@@ -162,21 +224,34 @@
                     android:inputType="textEmailAddress" />
             </com.nawaqes.NoChangingBackgroundTextInputLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/text_input_email_register"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/password"
+                />
+
             <com.nawaqes.NoChangingBackgroundTextInputLayout
                 android:id="@+id/text_input_password_register"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_height="@dimen/_49sdp"
                 android:textColorHint="#193a7d"
                 android:textColor="#193a7d"
+                app:errorTextAppearance="@style/error_appearance"
                 app:hintEnabled="false"
-                android:layout_below="@+id/text_input_email_register"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_below="@+id/password"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_25sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="@dimen/_35sdp"
                     android:background="@drawable/bc_edittext"
                     android:hint="@string/password"
                     android:gravity="center_vertical"

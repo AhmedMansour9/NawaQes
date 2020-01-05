@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
@@ -38,7 +39,7 @@ class Login : AppCompatActivity() {
     )
     private lateinit var dataSaver: SharedPreferences
     private var callbackManager: CallbackManager? = null
-
+    var IME_OPTION_NO_MICROPHONE_COMPAT:String ="nm"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -79,7 +80,6 @@ class Login : AppCompatActivity() {
 
     fun openRegister(){
         T_Signup.setOnClickListener(){
-            T_Signup.isEnabled=false
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
         }
@@ -134,15 +134,18 @@ class Login : AppCompatActivity() {
     private fun ValidateEmailLogin():Boolean{
         val Fullname=text_input_email_login.editText!!.text.toString()
         if(Fullname.isEmpty()){
+            text_input_email_login.setErrorTextAppearance(R.style.error_appearance)
             text_input_email_login.error=resources.getString(R.string.feildempty)
             return false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(Fullname).matches()) run {
+            text_input_email_login.setErrorTextAppearance(R.style.error_appearance)
             text_input_email_login.error =
                 resources.getString(R.string.validemail)
             return false
         }
         else {
             text_input_email_login.error=null
+
             return true
         }
     }
@@ -153,8 +156,9 @@ class Login : AppCompatActivity() {
             text_input_password_login.error=resources.getString(R.string.feildempty)
             return false
         } else if (!PASSWORD_PATTERN.matcher(Fullname).matches()) run {
+            text_input_password_login.setErrorTextAppearance(R.style.error_appearance)
             text_input_password_login.error =
-                "Password too weak"
+                resources.getString(R.string.pasweak)
             return false
         }
         else {
@@ -206,7 +210,16 @@ class Login : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         callbackManager?.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Btn_login.isEnabled=true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Btn_login.isEnabled=true
     }
 }

@@ -83,5 +83,7 @@
     <string name="validcity">من فضلك اختر المدينة</string>
     <string name="validarea">من فضلك اختر المنطقة</string>
     <string name="validcityamdarea">من فضلك اختر المدينة والمنطقة</string>
+    <string name="city">المدينة</string>
+
 
 </resources>

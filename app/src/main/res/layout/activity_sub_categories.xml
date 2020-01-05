@@ -41,23 +41,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:id="@+id/logo_login"
             />
-        <ImageView
-            android:layout_width="@dimen/_23sdp"
-            android:layout_height="@dimen/_22sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/icon_homeprofile"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:id="@+id/img_profile"
-            />
 
-        <ImageView
-            android:layout_width="@dimen/_23sdp"
-            android:layout_height="@dimen/_22sdp"
-            android:layout_marginTop="@dimen/_18sdp"
-            android:src="@drawable/icon_chat"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_alignParentEnd="true"
-            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,6 +78,8 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/_13sdp"
                 android:id="@+id/E_Search_sub"
+                android:imeOptions="actionDone"
+                android:inputType="text"
                 />
 
             <ImageView

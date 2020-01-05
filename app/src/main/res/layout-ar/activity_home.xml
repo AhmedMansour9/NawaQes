@@ -121,6 +121,8 @@
                 android:layout_marginStart="@dimen/_20sdp"
                 android:textColorHint="#CCCCCC"
                 android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:inputType="text"
                 android:textStyle="bold"
                 android:textSize="@dimen/_13sdp"
                 android:id="@+id/E_Search"
@@ -140,7 +142,7 @@
 
 
         <TextView
-            android:layout_width="@dimen/_34sdp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/_30sdp"
             android:text="@string/chooselocation"
             android:layout_below="@+id/Rela"
@@ -153,7 +155,7 @@
             android:id="@+id/T_Location"
             android:maxLines="1"
             android:ellipsize="end"
-            android:maxLength="7"
+            android:maxLength="8"
 
             />
         <ImageView

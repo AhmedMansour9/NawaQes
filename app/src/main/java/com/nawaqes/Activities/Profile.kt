@@ -21,6 +21,7 @@ import com.nawaqes.View.Locationid_View
 import com.nawaqes.View.SubCat_View
 import com.nawaqes.ViewModel.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.SwipHome
 import kotlinx.android.synthetic.main.activity_sub_categories.*
@@ -68,6 +69,7 @@ class Profile : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener , Loc
                         Email.text=loginmodel.data.email
                         Glide.with(this)
                             .load(loginmodel.data.image_path)
+                            .error(R.drawable.emptyprofile)
                             .into(Img_Profile)
 
                     }
@@ -260,6 +262,14 @@ class Profile : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener , Loc
         super.onResume()
         showInfo()
     }
-
+//    override fun onStop() {
+//        super.onStop()
+//        Btn_login.isEnabled=true
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        Btn_login.isEnabled=true
+//    }
 
 }

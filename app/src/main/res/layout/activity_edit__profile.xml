@@ -41,7 +41,7 @@
                         android:layout_marginEnd="@dimen/_20sdp"
                         android:text="@string/edit"
                         android:textColor="#fff"
-                        android:textSize="@dimen/_18sdp"
+                        android:textSize="@dimen/_16sdp"
                         android:id="@+id/Confirm"
                         android:onClick="Confirm"
                         />
@@ -55,7 +55,6 @@
                 android:layout_below="@+id/toolbar"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/emptyprofile"
                 android:id="@+id/Img_Profile"
                 />
 
@@ -68,13 +67,25 @@
                 android:text="@string/editinfo"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/_70sdp"
+                android:layout_marginTop="@dimen/_60sdp"
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fullname"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/Img_Profile"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/full_name"
+                />
+
             <com.nawaqes.NoChangingBackgroundTextInputLayout
                 android:id="@+id/text_input_name_register"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_marginTop="@dimen/_110sdp"
+                android:layout_height="@dimen/_55sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:textColorHint="#bcbcbc"
                 android:textColor="#bcbcbc"
                 app:hintEnabled="false"
@@ -83,7 +94,7 @@
                 android:background="@android:color/transparent"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:layout_marginLeft="@dimen/_25sdp"
-                android:layout_below="@+id/toolbar"
+                android:layout_below="@+id/full_name"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -101,7 +112,16 @@
                     android:id="@+id/E_Full_Name"
                     android:inputType="text" />
             </com.nawaqes.NoChangingBackgroundTextInputLayout>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/text_input_name_register"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/phone"
+                />
 
             <com.nawaqes.NoChangingBackgroundTextInputLayout
                 android:id="@+id/text_input_phone_register"
@@ -110,7 +130,7 @@
                 android:textColorHint="#193a7d"
                 android:textColor="#193a7d"
                 app:hintEnabled="false"
-                android:layout_below="@+id/text_input_name_register"
+                android:layout_below="@+id/phone"
                 app:boxBackgroundColor="@android:color/transparent"
                 app:boxBackgroundMode="none"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -135,16 +155,26 @@
             </com.nawaqes.NoChangingBackgroundTextInputLayout>
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textColor="#708cc4"
+                android:textSize="@dimen/_12sdp"
+                android:layout_below="@+id/text_input_phone_register"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:id="@+id/email"
+                />
 
             <com.nawaqes.NoChangingBackgroundTextInputLayout
                 android:id="@+id/text_input_email_register"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_height="@dimen/_55sdp"
                 android:textColorHint="#193a7d"
                 android:textColor="#193a7d"
                 app:hintEnabled="false"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_below="@+id/text_input_phone_register"
+                android:layout_below="@+id/email"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:layout_marginLeft="@dimen/_25sdp"
                 app:errorEnabled="true">
@@ -175,14 +205,14 @@
                 android:text="@string/language"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 />
 
             <RelativeLayout
                 android:layout_width="@dimen/_170sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_below="@+id/text_input_email_register"
-                android:layout_marginTop="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_40sdp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/relaa"
                 >
@@ -220,7 +250,7 @@
                 android:layout_below="@+id/relaa"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:text="@string/logout"
                 android:textAllCaps="false"
                 android:onClick="Btn_Register"

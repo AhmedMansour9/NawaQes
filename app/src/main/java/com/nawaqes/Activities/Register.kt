@@ -71,10 +71,10 @@ class Register : AppCompatActivity() {
             allCities.getData( DeviceLang,it).observe(this, Observer<Cities_Response> { loginmodel ->
                 if(loginmodel!=null) {
                     val itemList:MutableList<Cities_Response.Data> = ArrayList(loginmodel.data)
-                     var dat: Cities_Response.Data =Cities_Response.Data(0,resources.getString(R.string.selectlocation))
+                     var dat: Cities_Response.Data =Cities_Response.Data(0,resources.getString(R.string.city))
                     itemList.add(dat)
                     val customAdapter = Cities_Adapter(this.applicationContext, itemList)
-                    S_Area.setPrompt(resources.getString(R.string.selectlocation));
+                    S_Area.setPrompt(resources.getString(R.string.city));
                     S_Area.setAdapter(customAdapter)
                     S_Area.setSelection(customAdapter.getCount());
                     S_Area.setOnItemSelectedListener(object :
@@ -92,7 +92,6 @@ class Register : AppCompatActivity() {
                                 while (s < itemList.size) {
                                     if (itemList.get(s).name.equals(City)) {
                                         City_Id = itemList.get(s).id.toString()
-                                        Toast.makeText(it,City_Id,Toast.LENGTH_LONG).show()
                                     }
                                     s++
                                 }
@@ -116,6 +115,8 @@ class Register : AppCompatActivity() {
         this.applicationContext?.let {
             allCities.getData( Id,DeviceLang,it).observe(this, Observer<Cities_Response> { loginmodel ->
                 if(loginmodel!=null) {
+                    S_Location.visibility=View.VISIBLE
+                    area.visibility=View.VISIBLE
                     val itemList:MutableList<Cities_Response.Data> = ArrayList(loginmodel.data)
                     var dat: Cities_Response.Data =Cities_Response.Data(0,resources.getString(R.string.selectarea))
                     itemList.add(dat)
@@ -138,7 +139,6 @@ class Register : AppCompatActivity() {
                                 while (i < itemList.size) {
                                     if (itemList.get(i).name.equals(City)) {
                                         State_Id = itemList.get(i).id.toString()
-                                        Toast.makeText(it,State_Id,Toast.LENGTH_LONG).show()
                                     }
                                     i++
                                 }

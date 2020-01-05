@@ -5,7 +5,10 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -32,7 +35,9 @@ import com.nawaqes.SharedPrefManager
 import com.nawaqes.View.Locationid_View
 import com.nawaqes.ViewModel.*
 import kotlinx.android.synthetic.main.activity_details__product.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.Btn_login
 import kotlinx.android.synthetic.main.sortarea.*
 import java.util.*
 
@@ -90,8 +95,71 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         Search()
         openMessages()
         SentToken()
+        SearchKeyBoard()
+        EditSearchChanger()
 
 
+    }
+
+    private fun SearchKeyBoard() {
+        E_Search.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                doSearchWork()
+            }
+            true
+        }
+    }
+    private  fun EditSearchChanger(){
+        E_Search.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+               if(s.isEmpty()){
+                   getCategories()
+               }else {
+                   SearchResult()
+               }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+
+
+            }
+        })
+
+    }
+
+    private fun doSearchWork() {
+        if(!E_Search.text.toString().isEmpty()){
+            SearchResult()
+        }
+    }
+    private fun SearchResult(){
+        SwipHome.isRefreshing=true
+        this.applicationContext?.let {
+            categories.searchData(E_Search.text.toString(), UserToken, DeviceLang, it)
+                .observe(this, Observer<Categories_Response> { loginmodel ->
+                    SwipHome.isRefreshing = false
+                    if (loginmodel != null) {
+                        val listAdapter =
+                            Categories_Adapter(applicationContext, loginmodel.data)
+                        recycler_Categroies.layoutManager = LinearLayoutManager(
+                            applicationContext,
+                            LinearLayoutManager.VERTICAL,
+                            false
+                        )
+                        recycler_Categroies.setAdapter(listAdapter)
+                    }
+                })
+        }
     }
 
     private fun getTokenFirebase() {
@@ -128,24 +196,7 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
 
     private fun Search() {
         img_search.setOnClickListener(){
-            if(!E_Search.text.toString().isEmpty())
-                SwipHome.isRefreshing=true
-
-            this.applicationContext?.let {
-                categories.searchData(E_Search.text.toString(),UserToken,DeviceLang, it).observe(this, Observer<Categories_Response> { loginmodel ->
-                    SwipHome.isRefreshing=false
-                    if(loginmodel!=null) {
-                        val listAdapter =
-                            Categories_Adapter(applicationContext, loginmodel.data)
-                        recycler_Categroies.layoutManager = LinearLayoutManager(
-                            applicationContext,
-                            LinearLayoutManager.VERTICAL,
-                            false
-                        )
-                        recycler_Categroies.setAdapter(listAdapter)
-                    }
-                })
-            }
+           doSearchWork()
         }
     }
 
@@ -382,6 +433,14 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         }
 
     }
+    override fun onStop() {
+        super.onStop()
+        img_profile.isEnabled=true
+    }
 
+    override fun onPause() {
+        super.onPause()
+        img_profile.isEnabled=true
+    }
 
 }

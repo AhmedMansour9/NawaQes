@@ -106,7 +106,6 @@ class Edit_Profile : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
-
         }
     }
 
@@ -152,6 +151,7 @@ class Edit_Profile : AppCompatActivity() {
                         E_Email_Register.setText(loginmodel.data.email)
                         Glide.with(this)
                             .load(loginmodel.data.image_path)
+                            .error(R.drawable.emptyprofile)
                             .into(Img_Profile)
 
                     }
