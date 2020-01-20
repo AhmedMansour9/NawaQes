@@ -49,7 +49,7 @@
     <string name="searchcat">بحث الفئة</string>
     <string name="yourmind">مرحبا ، ماذا في عقلك؟</string>
     <string name="type">اكتب اسمًا أو وصفًا وسنساعدك في البحث عن حاجتك والبحث عنها</string>
-    <string name="send">ارسل</string>
+    <string name="send">أرسل رسالة</string>
     <string name="requestsent">تم ارسال الطلب بنجاح</string>
     <string name="requestto">طلب الي :  </string>
     <string name="acceptedby">قبلت من طرف : </string>
@@ -84,6 +84,14 @@
     <string name="validarea">من فضلك اختر المنطقة</string>
     <string name="validcityamdarea">من فضلك اختر المدينة والمنطقة</string>
     <string name="city">المدينة</string>
-
+    <string name="selectcity">أختر المدينة</string>
+    <string name="help">مساعدة</string>
+    <string name="facebook_app_id">596584377823322</string>
+    <string name="fb_login_protocol_scheme">fb299057070917866</string>
+    <string name="shop">محل</string>
+    <string name="company">شركة</string>
+    <string name="uploadimg">تحميل الصورة</string>
+    <string name="address">العنوان : </string>
+    <string name="mobile">رقم التليفون : </string>
 
 </resources>

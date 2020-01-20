@@ -7,14 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.nawaqes.Activities.Request_Details
 import com.nawaqes.Activities.Sent_Message
 import com.nawaqes.Model.DetailsShortlists_Response
 import com.nawaqes.Model.Requests_Shortlists_Response
 import com.nawaqes.R
 import com.nawaqes.View.Locationid_View
+import kotlinx.android.synthetic.main.textcolorspinner.view.*
 
 class RequestDetails_Adapter   (context: Context, val data: List<DetailsShortlists_Response.Data>)
     : RecyclerView.Adapter<RequestDetails_Adapter.ViewHolder>() {
@@ -30,13 +33,25 @@ class RequestDetails_Adapter   (context: Context, val data: List<DetailsShortlis
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: RequestDetails_Adapter.ViewHolder, position: Int) {
-        holder.Title.text = context.getString(R.string.requestto)+" "+data.get(position).name
-
+        if(data.get(position).premium.equals("2")){
+            holder.Rela_Border.setBackgroundResource(R.drawable.bv_gold)
+            holder.Img_Star.visibility=View.VISIBLE
+        }
+        holder.Title.text = ""+data.get(position).name
+        holder.address.text= ""+data.get(position).address
+        Glide.with(context)
+            .load( data.get(position).image)
+            .into(holder.Img_Shop)
         holder.Img_Chat.setOnClickListener() {
             val intent= Intent(context, Sent_Message::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("type","inbox")
             intent.putExtra("name",data.get(position).name)
+            intent.putExtra("phone",data.get(position).phone)
+            intent.putExtra("address",data.get(position).address)
+            intent.putExtra("lat",data.get(position).lat)
+            intent.putExtra("lng",data.get(position).lng)
+
             intent.putExtra("id",data.get(position).id.toString())
             context.startActivity(intent)
         }
@@ -62,6 +77,10 @@ class RequestDetails_Adapter   (context: Context, val data: List<DetailsShortlis
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val context: Context = itemView.context
         var Title = itemView.findViewById(R.id.Title) as TextView
+        var address = itemView.findViewById(R.id.address) as TextView
+        var Img_Shop = itemView.findViewById(R.id.Img_Shop) as ImageView
+        var Img_Star=itemView.findViewById(R.id.Img_Star)as ImageView
+       var Rela_Border=itemView.findViewById(R.id.Rela_Border) as RelativeLayout
         var Img_Chat = itemView.findViewById(R.id.Img_Chat) as ImageView
         var Img_Phone = itemView.findViewById(R.id.Img_Phone) as ImageView
 

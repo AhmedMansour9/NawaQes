@@ -31,7 +31,6 @@ import kotlinx.android.synthetic.main.activity_details__product.progressBarLogin
 import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_details__product.E_Message
-import kotlinx.android.synthetic.main.activity_details__product.Img_Camera
 import kotlinx.android.synthetic.main.activity_details__product.Img_ShowCamera
 import kotlinx.android.synthetic.main.activity_sent__message.*
 import java.io.ByteArrayOutputStream
@@ -55,7 +54,6 @@ class Sent_Message : AppCompatActivity() ,ActivityCompat.OnRequestPermissionsRes
         getData()
         Choose_Image()
         Send_Request()
-        setupPermissions()
 
 
 
@@ -71,6 +69,9 @@ class Sent_Message : AppCompatActivity() ,ActivityCompat.OnRequestPermissionsRes
          shop_id=intent.getStringExtra("id")
         val shop_name=intent.getStringExtra("name")
         Title.text=resources.getString(R.string.to)+" "+shop_name
+        phone.text=resources.getString(R.string.mobile)+" "+intent.getStringExtra("phone")
+        address.text=resources.getString(R.string.address)+" "+intent.getStringExtra("address")
+
     }
 
     val Context.isConnected: Boolean
@@ -107,6 +108,7 @@ class Sent_Message : AppCompatActivity() ,ActivityCompat.OnRequestPermissionsRes
                             Btn_Sent.isEnabled = true
                             progressBarLogin.visibility = View.GONE
                             if (loginmodel != null) {
+                                E_Messages.setText(null)
                                 Toast.makeText(
                                     this,
                                     resources.getString(R.string.requestsent),
@@ -131,7 +133,7 @@ class Sent_Message : AppCompatActivity() ,ActivityCompat.OnRequestPermissionsRes
         }
     }
     private fun Choose_Image() {
-        Img_Camera.setOnClickListener(){
+        Img_Cameras.setOnClickListener(){
             val permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
 

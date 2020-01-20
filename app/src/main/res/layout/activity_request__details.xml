@@ -17,8 +17,8 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="@dimen/_22sdp"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:src="@drawable/logo_lgin"
                 android:layout_centerInParent="true"
                 android:id="@+id/logo_login"
@@ -101,7 +101,7 @@
         android:layout_height="@dimen/_70sdp"
         android:layout_below="@+id/T_Description"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_15sdp"
         app:cardCornerRadius="8dp"
         android:elevation="10dp">

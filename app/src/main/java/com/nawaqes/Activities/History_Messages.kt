@@ -46,6 +46,9 @@ class History_Messages : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListe
             intent.putExtra("type","inbox")
             intent.putExtra("name",HistoryMessages_Adapter.name)
             intent.putExtra("id",HistoryMessages_Adapter.id)
+            intent.putExtra("phone",HistoryMessages_Adapter.phone)
+            intent.putExtra("address",HistoryMessages_Adapter.address)
+
             startActivity(intent)
         }
 

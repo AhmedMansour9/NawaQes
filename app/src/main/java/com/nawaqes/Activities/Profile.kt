@@ -193,10 +193,12 @@ class Profile : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener , Loc
 
     fun Selected_Tabs(){
         T_MyRequests.setOnClickListener(){
+            img_filter.visibility=View.GONE
            onClickRequests()
         }
         T_Offers.setOnClickListener(){
-          onClickOffers()
+            img_filter.visibility=View.VISIBLE
+            onClickOffers()
         }
     }
     fun onClickRequests(){
@@ -237,6 +239,7 @@ class Profile : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener , Loc
         this.applicationContext?.let {
             offers.getOffersCategories(id,UserToken,"en", it).observe(this,
                 Observer<Offers_Response> { loginmodel ->
+                    recycler_offfers.visibility=View.VISIBLE
                     SwipHome.isRefreshing=false
                     if(loginmodel!=null) {
                         val listAdapter =

@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_sub_categories.recycler_Categroie
 
 class SubCategories : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener, SubCat_View {
 
+    internal lateinit var shared: SharedPreferences
 
     var subCategoris:Int = 0
     lateinit var DeviceLang:String
@@ -166,9 +167,14 @@ class SubCategories : AppCompatActivity() , SwipeRefreshLayout.OnRefreshListener
     }
 
     fun Language() {
-        DeviceLang = Locale.getDefault().language
-    }
+        shared = getSharedPreferences("Language", MODE_PRIVATE)
+        val Lan = shared.getString("Lann", null)
+        if(Lan!=null){
+            DeviceLang = Lan
+        }else {
+            DeviceLang = Locale.getDefault().language
 
+        }    }
     override fun onRefresh() {
         getSubCategories()
     }

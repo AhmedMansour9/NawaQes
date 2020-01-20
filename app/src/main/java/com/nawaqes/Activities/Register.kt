@@ -59,8 +59,26 @@ class Register : AppCompatActivity() {
         EditText_Changer(text_input_phone_register.editText!!)
         EditText_Changer(text_input_email_register.editText!!)
         EditText_Changer(text_input_password_register.editText!!)
+        openCompany()
+        openShop()
 
+    }
+    private fun openShop() {
+        Btn_shopregister.setOnClickListener(){
+            val intent = Intent(this, Webview::class.java)
+            intent.putExtra("type","http://nwqis.com/en/customer/showRegisterFormShop")
+            startActivity(intent)
+            finish()
+        }
+    }
 
+    private fun openCompany() {
+        Btn_companyregister.setOnClickListener(){
+            val intent = Intent(this, Webview::class.java)
+            intent.putExtra("type","http://nwqis.com/en/customer/showRegisterFormCompany")
+            startActivity(intent)
+            finish()
+        }
     }
 
 

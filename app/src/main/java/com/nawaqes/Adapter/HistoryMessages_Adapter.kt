@@ -26,6 +26,8 @@ class HistoryMessages_Adapter (context: Context, val userList: List<HistoryMessa
    companion object {
        lateinit var id:String
        lateinit var name:String
+       lateinit var phone:String
+       lateinit var address:String
 
    }
     override fun onCreateViewHolder(
@@ -41,7 +43,8 @@ class HistoryMessages_Adapter (context: Context, val userList: List<HistoryMessa
 
         id=userList.get(position).shop.id.toString()
         name=userList.get(position).shop.name
-
+        phone=userList.get(position).shop.phone
+        address=userList.get(position).shop.address
 
     }
 

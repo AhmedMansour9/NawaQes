@@ -31,7 +31,7 @@ class CountNotifications_ViewModel :ViewModel () {
     ): LiveData<CountNotifications_Response> {
         listProductsMutableLiveData = MutableLiveData<CountNotifications_Response>()
         this.context = context
-        getDataValues( Token)
+        NewNotifications( Token)
         return listProductsMutableLiveData as MutableLiveData<CountNotifications_Response>
     }
 
@@ -61,7 +61,7 @@ class CountNotifications_ViewModel :ViewModel () {
     private fun NewNotifications( Token: String) {
 
         var service = ApiClient.getClient()?.create(Service::class.java)
-        val call = service?.getNewMessage( "Bearer " + Token)
+        val call = service?.getNewNotifictions( "Bearer " + Token)
         call?.enqueue(object : Callback, retrofit2.Callback<CountNotifications_Response> {
             override fun onResponse(
                 call: Call<CountNotifications_Response>,

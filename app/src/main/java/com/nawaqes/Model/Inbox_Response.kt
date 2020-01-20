@@ -34,7 +34,7 @@ data class Inbox_Response(
         @Parcelize
         data class Shop(
             @SerializedName("category_id")
-            val categoryId: String,
+            val categoryId: String?,
             @SerializedName("city_id")
             val cityId: String,
             @SerializedName("email")
@@ -42,17 +42,17 @@ data class Inbox_Response(
             @SerializedName("id")
             val id: Int,
             @SerializedName("image")
-            val image: String,
+            val image: String?,
             @SerializedName("lat")
-            val lat: String,
+            val lat: String?,
             @SerializedName("lng")
-            val lng: String,
+            val lng: String?,
             @SerializedName("name")
-            val name: String,
+            val name: String?,
             @SerializedName("phone")
-            val phone: String,
+            val phone: String?,
             @SerializedName("premium")
-            val premium: String,
+            val premium: String?,
             @SerializedName("state_id")
             val stateId: String
         ) : Parcelable

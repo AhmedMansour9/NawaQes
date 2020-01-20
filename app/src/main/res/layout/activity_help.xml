@@ -23,6 +23,16 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+       android:text="@string/help"
+        android:textColor="#000"
+        android:textSize="@dimen/_16sdp"
+        />
+
     <ImageView
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_45sdp"
@@ -30,6 +40,7 @@
         android:layout_marginStart="@dimen/_30sdp"
         android:src="@drawable/icon_searchhelp"
         android:id="@+id/img_help"
+
         />
 
     <TextView

@@ -4,10 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.nawaqes.Activities.Home;
+import com.nawaqes.Model.CountNotifications_Response;
+import com.nawaqes.ViewModel.CountNotifications_ViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,23 +30,6 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     Intent intent;
     Context context;
 
-
-//    @Override
-//    public void onNewToken(String s) {
-//        super.onNewToken(s);
-//        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-//        Log.e("Token is ", FirebaseInstanceId.getInstance().getToken());
-//
-//        Log.d(TAG, "Refreshed token: " + refreshedToken);
-//
-//        storeToken(s);
-//    }
-//
-//
-//    private void storeToken(String token) {
-//        SharedPrefManager.getInstance(getApplicationContext()).saveDeviceToken(token);
-//
-//    }
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         context=getApplicationContext();
@@ -88,4 +80,6 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
 
     }
+
+
 }

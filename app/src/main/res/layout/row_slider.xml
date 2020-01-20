@@ -7,7 +7,9 @@
     <ImageView
         android:id="@+id/viewPagerItem_image1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp" />
+        android:layout_height="@dimen/_120sdp"
+        android:scaleType="fitXY"
+        />
 
 
 

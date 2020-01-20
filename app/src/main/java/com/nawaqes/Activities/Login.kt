@@ -7,7 +7,6 @@ import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputType
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
@@ -17,9 +16,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.nawaqes.Model.Register_Model
@@ -28,9 +25,26 @@ import com.nawaqes.ViewModel.Register_ViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.Btn_login
 import kotlinx.android.synthetic.main.activity_register.*
+import org.json.JSONObject
 import java.util.*
+import java.util.logging.Logger
 import java.util.regex.Pattern
 import kotlinx.android.synthetic.main.activity_login.progressBarLogin as progressBarLogin1
+import android.content.pm.PackageManager
+import android.util.Base64
+import android.util.Log
+import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentActivity
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInResult
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class Login : AppCompatActivity() {
     private val PASSWORD_PATTERN = Pattern.compile(
@@ -39,44 +53,107 @@ class Login : AppCompatActivity() {
     )
     private lateinit var dataSaver: SharedPreferences
     private var callbackManager: CallbackManager? = null
-    var IME_OPTION_NO_MICROPHONE_COMPAT:String ="nm"
+    var socialid:String?= String()
+    var email:String?=String()
+    var name:String?=String()
+    lateinit var mAuth: FirebaseAuth
+    lateinit var googleApiClient: GoogleApiClient
+    var RequestSignInCode:Int=7
+    lateinit var googleSignInOptions: GoogleSignInOptions
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         dataSaver = PreferenceManager.getDefaultSharedPreferences(this);
-
+        mAuth = FirebaseAuth.getInstance();
         openRegister()
+        GoogleSignOpition();
         openHome()
         LoginFacebook()
+        Login_Google()
         EditText_Changer(text_input_password_login.editText!!)
         EditText_Changer(text_input_email_login.editText!!)
+        openCompany()
+        openShop()
+
+    }
+
+    private fun openShop() {
+        Btn_shop.setOnClickListener(){
+            val intent = Intent(this, Webview::class.java)
+            intent.putExtra("type","http://nwqis.com/shop/login")
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun openCompany() {
+        Btn_company.setOnClickListener(){
+            val intent = Intent(this, Webview::class.java)
+            intent.putExtra("type","http://nwqis.com/company/login")
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun GoogleSignOpition() {
+
+        googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        googleApiClient =  GoogleApiClient.Builder(applicationContext)
+//                .enableAutoManage(applicationContext)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+                .build();
+    }
+
+    private  fun Login_Google(){
+     Btn_Google.setOnClickListener(){
+         val signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+         startActivityForResult(signInIntent, RequestSignInCode)
+     }
+
     }
 
     private fun LoginFacebook() {
-//        Btn_Face.setOnClickListener(View.OnClickListener {
-//            // Login
-//            callbackManager = CallbackManager.Factory.create()
-//            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
-//            LoginManager.getInstance().registerCallback(callbackManager,
-//                object : FacebookCallback<LoginResult> {
-//                    override fun onSuccess(loginResult: LoginResult) {
-////                        Log.d("MainActivity", "Facebook token: " + loginResult.accessToken.token)
-//
-////                        startActivity(Intent(applicationContext, AuthenticatedActivity::class.java))
-//                    }
-//
-//                    override fun onCancel() {
-////                        Log.d("MainActivity", "Facebook onCancel.")
-//
-//                    }
-//
-//                    override fun onError(error: FacebookException) {
-////                        Log.d("MainActivity", "Facebook onError.")
-//
-//                    }
-//                })
-//        })
+        Btn_Face.setOnClickListener(View.OnClickListener {
+            // Login
+            callbackManager = CallbackManager.Factory.create()
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
+            LoginManager.getInstance().registerCallback(callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult) {
+                        val request = GraphRequest.newMeRequest(loginResult.accessToken) { `object`, response ->
+                                if (`object`.has("email")) {
+                                    email =`object`.get("email").toString()
+                                }
+                                if (`object`.has("id")) {
+                                    socialid =`object`.get("id").toString()
+                                }
+                                if (`object`.has("name")) {
+                                    name =`object`.get("name").toString()
+                                }
+
+                            LoginFaceBooks(socialid,email,name)
+                        }
+                        val parameters = Bundle()
+                        parameters.putString("fields", "name,email,id,picture.type(large)")
+                        request.parameters = parameters
+                        request.executeAsync()
+                    }
+
+                    override fun onCancel() {
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        Toast.makeText(applicationContext,error.toString(),Toast.LENGTH_LONG).show()
+                    }
+                })
+
+        })
     }
+
 
     fun openRegister(){
         T_Signup.setOnClickListener(){
@@ -131,6 +208,42 @@ class Login : AppCompatActivity() {
 
     }
 
+    fun LoginFaceBooks(id:String?,email:String? ,name:String?){
+        if(isConnected){
+            var RegisterViewModel =  ViewModelProvider.NewInstanceFactory().create(
+                Register_ViewModel::class.java)
+            progressBarLogin.visibility= View.VISIBLE
+            RegisterViewModel.getLoginFacebook(id, email,name,applicationContext).observe(this,
+                Observer<Register_Model> { loginmodel ->
+                    progressBarLogin.visibility = View.GONE
+                    if (loginmodel != null) {
+                        val customer_id = loginmodel.accessToken
+                        dataSaver.edit().putString("token", customer_id).apply()
+                        val intent = Intent(this, Home::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val status: Boolean = RegisterViewModel.getStatus()
+                        if (status == true) {
+                            Toast.makeText(
+                                applicationContext,
+                                applicationContext.getString(R.string.wrongemailorpass),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            )
+        }else {
+            Toast.makeText(
+                applicationContext,
+                applicationContext.getString(R.string.nointernet),
+                Toast.LENGTH_LONG
+            ).show()
+
+        }
+
+    }
     private fun ValidateEmailLogin():Boolean{
         val Fullname=text_input_email_login.editText!!.text.toString()
         if(Fullname.isEmpty()){
@@ -211,8 +324,35 @@ class Login : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager?.onActivityResult(requestCode, resultCode, data)
-    }
+        if(requestCode==RequestSignInCode){
+          var googleSignInResult:GoogleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+           if (googleSignInResult.isSuccess()) {
+               var googleSignInAccount: GoogleSignInAccount = googleSignInResult.signInAccount!!;
+                FirebaseUserAuth(googleSignInAccount);
+            }
 
+        }
+
+    }
+    private fun FirebaseUserAuth(acct: GoogleSignInAccount) {
+
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        mAuth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    val user = mAuth.currentUser
+                    LoginFaceBooks(
+                        mAuth.currentUser!!.uid,
+                        mAuth.currentUser!!.email,
+                        mAuth.currentUser!!.displayName
+                    )
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                }
+            }
+    }
     override fun onStop() {
         super.onStop()
         Btn_login.isEnabled=true
@@ -223,3 +363,4 @@ class Login : AppCompatActivity() {
         Btn_login.isEnabled=true
     }
 }
+

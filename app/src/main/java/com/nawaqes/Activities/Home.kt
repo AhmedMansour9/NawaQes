@@ -3,15 +3,15 @@ package com.nawaqes.Activities
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.RelativeLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -22,11 +22,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.github.arturogutierrez.Badges
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.nawaqes.Adapter.Categories_Adapter
 import com.nawaqes.Adapter.Cities_Adapter
 import com.nawaqes.Adapter.SortsArea_Adapter
+import com.nawaqes.BadgeIntentService
 import com.nawaqes.Model.Categories_Response
 import com.nawaqes.Model.Cities_Response
 import com.nawaqes.Model.CountNotifications_Response
@@ -34,11 +36,9 @@ import com.nawaqes.Model.SentMessage_Response
 import com.nawaqes.SharedPrefManager
 import com.nawaqes.View.Locationid_View
 import com.nawaqes.ViewModel.*
-import kotlinx.android.synthetic.main.activity_details__product.*
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.Btn_login
 import kotlinx.android.synthetic.main.sortarea.*
+import me.leolin.shortcutbadger.ShortcutBadger
 import java.util.*
 
 
@@ -57,6 +57,7 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
     lateinit var DeviceLang:String
     lateinit var UserToken: String
     var Location_Status=false
+    lateinit var listCities: ArrayAdapter<Cities_Response.Data>
     companion object {
          var CityId:String?=null
          var StateId: String?=null
@@ -85,19 +86,17 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         init()
         getTokenFirebase()
         getCategories()
-        ButtonSheet()
-        openSort()
         SwipRefresh()
-        cancelSort()
         openProfile()
-        openSortArea()
-        cancelArea()
         Search()
         openMessages()
         SentToken()
         SearchKeyBoard()
         EditSearchChanger()
-
+//        Badges.setBadge(this, 5);
+//        startService(
+//                     Intent(applicationContext, BadgeIntentService::class.java).putExtra("badgeCount", 10)
+//                );
 
     }
 
@@ -190,8 +189,8 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         Img_Msg.setOnClickListener(){
             val intent = Intent(this, Messages::class.java)
             startActivity(intent)
-        }
 
+        }
     }
 
     private fun Search() {
@@ -225,19 +224,52 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
             allCities.getData( DeviceLang,it).observe(this, Observer<Cities_Response> { loginmodel ->
                 SwipHome.isRefreshing=false
                 if(loginmodel!=null) {
-                    val listAdapter = SortsLocation_Adapter(this.applicationContext, loginmodel.data)
-                    listAdapter.onClick(this)
-                    recycler_Sort!!.layoutManager = LinearLayoutManager(
-                        this.applicationContext,
-                        LinearLayoutManager.VERTICAL,
-                        false
-                    )
-                    recycler_Sort!!.setAdapter(listAdapter)
-
+                    val itemList:MutableList<Cities_Response.Data> = ArrayList(loginmodel.data)
+                    var dat: Cities_Response.Data =Cities_Response.Data(0,resources.getString(R.string.selectcity))
+                    itemList.add(0,dat)
+                    listCities= ArrayAdapter(this,R.layout.textcolorspinner,itemList)
+                    listCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    T_Cities.setAdapter(listCities)
+                    T_Cities.setSelection(0, true);
+                    var v:View  = T_Cities.getSelectedView()
+                    (v as TextView).setTextColor(Color.parseColor("#ffffff"))
+                    T_Cities.setOnItemSelectedListener(object :
+                        AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            adapterView: AdapterView<*>,
+                            view: View,
+                            y: Int,
+                            l: Long
+                        ) {
+                            T_Cities.setSelection(y, true);
+                            var v:View  = T_Cities.getSelectedView()
+                            (v as TextView).setTextColor(Color.parseColor("#ffffff"))
+                            var City = T_Cities.getSelectedItem().toString()
+                            if(!City.equals(resources.getString(R.string.selectcity))) {
+                                var i = 0
+                                var City = T_Cities.getSelectedItem().toString()
+                                while (i < itemList!!.size) {
+                                    if (itemList!!.get(i).name.equals(City)) {
+                                        SharedPrefManager.getInstance(applicationContext).saveAreaId(null)
+                                        CityId = itemList!!.get(i).id.toString()
+                                        val intent = Intent(applicationContext, Areas::class.java)
+                                        intent.putExtra("city_id", CityId)
+                                        startActivity(intent)
+                                    }
+                                    i++
+                                }
+                            }else {
+                                CityId=null
+                            }
+                        }
+                        override fun onNothingSelected(adapterView: AdapterView<*>) {
+                        }
+                    })
                 }
             })
         }
     }
+
     fun getAllStates(Id:String){
         val allCities = ViewModelProvider.NewInstanceFactory().create(States_ViewModel::class.java)
         this.applicationContext?.let {
@@ -255,8 +287,6 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
                         false
                     )
                     recycler_Area!!.setAdapter(listAdapter)
-
-
                 }
             })
         }
@@ -270,8 +300,10 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
                     if(loginmodel.data!=0)
                     T_Notifications.visibility=View.VISIBLE
                 T_Notifications.text=loginmodel.data.toString()
-                }
+                }else {
+                    T_Notifications.visibility=View.GONE
 
+                }
             })
         }
     }
@@ -279,11 +311,14 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         this.applicationContext?.let {
             notifications= ViewModelProvider.NewInstanceFactory().create(
                 CountNotifications_ViewModel::class.java)
-            notifications.getNewNotifications(UserToken, it).observe(this, Observer<CountNotifications_Response> { loginmodel ->
+            notifications.getData(UserToken, it).observe(this, Observer<CountNotifications_Response> { loginmodel ->
                 if(loginmodel!=null) {
                     if(loginmodel.data!=0)
                 T_Messages.visibility=View.VISIBLE
                 T_Messages.text=loginmodel.data.toString()
+                }else {
+                    T_Messages.visibility=View.GONE
+
                 }
 
             })
@@ -330,55 +365,26 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         }
     }
 
-    fun openSortArea() {
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-        T_Area.setOnClickListener() {
-            if (Location_Status) {
-                if (bottomSheetAreaBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
-                    bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
-                    Frame_Alpha.visibility = View.VISIBLE
-                } else {
-                    Frame_Alpha.visibility = View.GONE
-                    bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-                }
-            } else {
-                Toast.makeText(this, resources.getString(R.string.validcity), Toast.LENGTH_LONG)
-                    .show()
-            }
-        }
-    }
 
-    fun openSort() {
-        bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-        T_Location.setOnClickListener() {
-            if (bottomSheetBehavior.state== BottomSheetBehavior.STATE_HIDDEN) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
-                Frame_Alpha.visibility=View.VISIBLE
-        } else {
-                Frame_Alpha.visibility=View.GONE
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-        }
-    }
-    }
-    fun ButtonSheet() {
-        sheetdirec=findViewById(R.id.sheetdirec)
-        sheetdArea=findViewById(R.id.sheetArea)
-        bottomSheetBehavior = BottomSheetBehavior.from(sheetdirec)
-        bottomSheetAreaBehavior=BottomSheetBehavior.from(sheetdArea)
-    }
+//    fun ButtonSheet() {
+//        sheetdirec=findViewById(R.id.sheetdirec)
+//        sheetdArea=findViewById(R.id.sheetArea)
+//        bottomSheetBehavior = BottomSheetBehavior.from(sheetdirec)
+//        bottomSheetAreaBehavior=BottomSheetBehavior.from(sheetdArea)
+//    }
 
-    fun cancelSort(){
-        T_Cancel.setOnClickListener(){
-            Frame_Alpha.visibility=View.GONE
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-        }
-    }
-    fun cancelArea(){
-        T_CancelArea.setOnClickListener(){
-            Frame_Alpha.visibility=View.GONE
-            bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-        }
-    }
+//    fun cancelSort(){
+//        T_Cancel.setOnClickListener(){
+//            Frame_Alpha.visibility=View.GONE
+//            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+//        }
+//    }
+//    fun cancelArea(){
+//        T_CancelArea.setOnClickListener(){
+//            Frame_Alpha.visibility=View.GONE
+//            bottomSheetAreaBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+//        }
+//    }
 
 
     fun Language() {
@@ -393,17 +399,17 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
 
     override fun Areaid(id: String,Name:String) {
         StateId=id
-        T_Area.text=Name
-        Frame_Alpha.visibility=View.GONE
-
+//        T_Area.text=Name
+//        Frame_Alpha.visibility=View.GONE
+//
     }
 
     override fun CityId(id: String,Name:String) {
         Location_Status=true
         CityId=id
-        T_Location.text=Name
+//        T_Location.text=Name
         getAllStates(id)
-        Frame_Alpha.visibility=View.GONE
+//        Frame_Alpha.visibility=View.GONE
         SwipHome.isRefreshing=true
 
     }
@@ -415,7 +421,9 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
         getNewMessage()
     }
     override fun Cat_id(categorieid: Int,id:Int,cat_name:String) {
-        if(CityId!=null&& StateId!=null){
+        var areaaid:String?= SharedPrefManager.getInstance(this).areaId
+
+        if(CityId!=null&& areaaid!=null){
             if(id==0){
                 val intent = Intent(this, Details_Product::class.java)
                 intent.putExtra("cat_id",categorieid)
@@ -441,6 +449,13 @@ class Home : AppCompatActivity(), Locationid_View, SwipeRefreshLayout.OnRefreshL
     override fun onPause() {
         super.onPause()
         img_profile.isEnabled=true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getNewNotification()
+        getNewMessage()
+
     }
 
 }

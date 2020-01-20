@@ -43,6 +43,30 @@
 
                 />
 
+            <Button
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/logo"
+                android:layout_alignStart="@+id/text_input_email_login"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/company"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:background="@drawable/bc_btsignin"
+                android:id="@+id/Btn_company"
+                />
+            <Button
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/logo"
+                android:layout_alignEnd="@+id/text_input_email_login"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/shop"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:background="@drawable/bc_btsignin"
+                android:id="@+id/Btn_shop"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +76,7 @@
                 android:layout_below="@+id/logo"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:id="@+id/email"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_45sdp"
                 />
             <com.nawaqes.NoChangingBackgroundTextInputLayout
                 android:id="@+id/text_input_email_login"
@@ -61,8 +85,8 @@
                 android:textColorHint="#193a7d"
                 android:textColor="#193a7d"
                 app:hintEnabled="false"
-                app:errorTextAppearance="@style/error_appearance"
                 android:layout_below="@+id/email"
+                app:errorTextAppearance="@style/error_appearance"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -75,14 +99,15 @@
                     android:hint="@string/email"
                     android:gravity="center_vertical"
                     android:paddingStart="@dimen/_10sdp"
+                    app:errorTextAppearance="@style/error_appearance"
                     android:textColor="#193a7d"
                     android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="textEmailAddress"
                     android:textColorHint="#193a7d"
-                    app:errorTextAppearance="@style/error_appearance"
                     android:drawableEnd="@drawable/ic_email"
                     android:paddingEnd="@dimen/_15sdp"
                     android:id="@+id/E_Email"
-                    android:inputType="textEmailAddress" />
+                    />
             </com.nawaqes.NoChangingBackgroundTextInputLayout>
 
             <TextView
@@ -106,8 +131,12 @@
                 app:hintEnabled="false"
                 android:layout_below="@+id/password"
                 android:layout_marginRight="@dimen/_20sdp"
+                app:errorTextAppearance="@style/error_appearance"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#193a7d"
+
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -116,26 +145,24 @@
                     android:background="@drawable/bc_edittext"
                     android:hint="@string/password"
                     android:gravity="end|center"
+                    app:errorTextAppearance="@style/error_appearance"
                     android:paddingStart="@dimen/_10sdp"
                     android:textColor="#193a7d"
-                    app:errorTextAppearance="@style/error_appearance"
                     android:drawablePadding="@dimen/_10sdp"
                     android:maxLength="16"
                     android:textColorHint="#193a7d"
                     android:id="@+id/E_Password"
-                    android:drawableEnd="@drawable/ic_password"
                     android:paddingEnd="@dimen/_15sdp"
                     android:inputType="textPassword" />
             </com.nawaqes.NoChangingBackgroundTextInputLayout>
 
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_below="@+id/T_forget"
-                android:layout_marginEnd="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/text_input_password_login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:text="@string/signin"
                 android:textAllCaps="false"
                 android:textColor="#fff"
@@ -143,41 +170,60 @@
                 android:id="@+id/Btn_login"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/text_input_password_login"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/forgetyourpassword"
-                android:textColor="#4267b2"
-                android:id="@+id/T_forget"
-                android:paddingEnd="@dimen/_20sdp"
-                />
+            <!--    <TextView-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_alignParentEnd="true"-->
+            <!--        android:layout_below="@+id/text_input_password_login"-->
+            <!--        android:layout_marginTop="@dimen/_10sdp"-->
+            <!--        android:text="@string/forgetyourpassword"-->
+            <!--        android:textColor="#4267b2"-->
+            <!--        android:id="@+id/T_forget"-->
+            <!--        android:paddingEnd="@dimen/_20sdp"-->
+            <!--        />-->
 
 
 
-            <Button
+            <ImageView
                 android:id="@+id/Btn_Face"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/bc_btsignin"
-                android:text="@string/face"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:padding="@dimen/_8sdp"
                 android:textColor="#fff"
                 android:textSize="@dimen/_9sdp"
                 android:textAllCaps="false"
                 android:gravity="center_vertical"
-                android:layout_marginEnd="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_40sdp"
+                android:layout_alignStart="@+id/Btn_login"
+                android:src="@drawable/facebook"
+                android:layout_below="@+id/Btn_login"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/or"
                 android:layout_centerHorizontal="true"
-                android:drawableStart="@drawable/icon_face"
-                android:drawablePadding="@dimen/_30sdp"
-                android:paddingStart="@dimen/_30sdp"
+                android:textColor="#000"
+                android:layout_marginTop="@dimen/_22sdp"
                 android:layout_below="@+id/Btn_login"
                 />
 
-
+            <ImageView
+                android:id="@+id/Btn_Google"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/btn_signgoogle"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textColor="#fff"
+                android:textSize="@dimen/_9sdp"
+                android:textAllCaps="false"
+                android:padding="@dimen/_8sdp"
+                android:gravity="center_vertical"
+                android:src="@drawable/google"
+                android:layout_below="@+id/Btn_login"
+                android:layout_alignEnd="@+id/Btn_login"
+                />
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

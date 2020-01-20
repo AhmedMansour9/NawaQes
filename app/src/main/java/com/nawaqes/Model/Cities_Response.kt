@@ -23,5 +23,10 @@ data class Cities_Response(
         var id: Int,
         @SerializedName("name")
         var name: String
-    ) : Parcelable
+
+    ) : Parcelable {
+        override fun toString(): String {
+            return name
+        }
+    }
 }

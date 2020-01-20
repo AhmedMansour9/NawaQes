@@ -16,6 +16,10 @@ interface Service {
     fun userLogin(
         @QueryMap map:Map<String,String>): Call<Register_Model>
 
+    @POST("customer/social_login")
+    fun userLoginFacebook(
+        @QueryMap map:Map<String,String>): Call<Register_Model>
+
 
 
     @Headers("Content-Type: application/json;charset=UTF-8")
@@ -61,6 +65,10 @@ interface Service {
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("customer/offers")
     fun getOffers(@QueryMap map:Map<String,String>,@Header("Authorization")auth:String,@Header("X-localization")lang:String): Call<Offers_Response>
+
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @POST("customer/news")
+    fun getNews(@QueryMap map:Map<String,String>,@Header("Authorization")auth:String,@Header("X-localization")lang:String): Call<News_Response>
 
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("customer/customer_inboxes")

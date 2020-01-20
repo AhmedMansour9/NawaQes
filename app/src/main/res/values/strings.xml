@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NawaQes</string>
+    <string name="app_name">Nwqis</string>
     <string name="action_settings">Settings</string>
     <string name="signin">Sign in</string>
     <string name="signup">Sign up</string>
@@ -8,6 +8,7 @@
     <string name="forgetyourpassword">Forget your password?</string>
     <string name="or">OR</string>
     <string name="face">LOGIN WITH FACEBOOK</string>
+
     <string name="google">Continue with google</string>
     <string name="nohaveanaccount">Don\'t have an account?</string>
     <string name="alreadyhaveacc">Alreeady have an account?</string>
@@ -47,9 +48,9 @@
     <string name="searchcat">Search Category</string>
     <string name="yourmind">Hi, what on your mind ?</string>
     <string name="type">Type a name or description and we will help you to search and find your need</string>
-    <string name="send">Send</string>
+    <string name="send">Send Message</string>
     <string name="requestsent">Request Send Successfully</string>
-    <string name="requestto">Request to: </string>
+    <string name="requestto">Request to </string>
     <string name="acceptedby">Accepted by: </string>
     <string name="date">Date: </string>
     <string name="myrequestinfo">My Request Info</string>
@@ -77,10 +78,19 @@
     <string name="validemail">Please enter a valid email address</string>
     <string name="feildempty">Fill input with valid data</string>
     <string name="pasweak">Password too weak</string>
-    <string name="selectarea">Select Area</string>
+    <string name="selectarea">Select District</string>
     <string name="validcity">Please Select City</string>
     <string name="validarea">Please Select Area</string>
     <string name="validcityamdarea">Please Select City And Area</string>
     <string name="city">City</string>
+    <string name="selectcity">Select City</string>
+    <string name="help">Help</string>
+    <string name="facebook_app_id">596584377823322</string>
+    <string name="fb_login_protocol_scheme">fb299057070917866</string>
+    <string name="shop">Shop</string>
+    <string name="company">Company</string>
+    <string name="address">Address :</string>
+    <string name="mobile">Phone : </string>
+    <string name="uploadimg">Upload Image</string>
 
 </resources>

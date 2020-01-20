@@ -40,6 +40,8 @@ data class DetailsShortlists_Response(
         @SerializedName("premium")
         val premium: String,
         @SerializedName("state_id")
-        val stateId: String
+        val stateId: String,
+        @SerializedName("address")
+        var address:String
     ) : Parcelable
 }

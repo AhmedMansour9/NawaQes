@@ -19,6 +19,7 @@ class Categories_ViewModel :ViewModel() {
 
 
     fun getData(Token:String,lang:String, context: Context): LiveData<Categories_Response> {
+        if(listProductsMutableLiveData==null)
         listProductsMutableLiveData = MutableLiveData<Categories_Response>()
         this.context = context
         getDataValues(Token,lang)

@@ -61,6 +61,20 @@ class Register_ViewModel : ViewModel() {
         return listProductsMutableLiveData as MutableLiveData<Register_Model>
 
     }
+    public fun getLoginFacebook(
+        id: String?,
+        email:String?,
+        name:String?,
+        context: Context
+    ): LiveData<Register_Model> {
+        listProductsMutableLiveData = MutableLiveData<Register_Model>()
+        this.context = context
+        getface(id,email,name)
+        return listProductsMutableLiveData as MutableLiveData<Register_Model>
+
+    }
+
+
 
     private fun getDataValues(full_name:String,Email: String,Password:String,Phone:String,city_id:String
                               ,state_id:String) {
@@ -112,6 +126,35 @@ class Register_ViewModel : ViewModel() {
 
         var service = ApiClient.getClient()?.create(Service::class.java)
         val call = service?.userLogin(map)
+
+
+        call?.enqueue(object : Callback, retrofit2.Callback<Register_Model> {
+            override fun onResponse(call: Call<Register_Model>, response: Response<Register_Model>) {
+
+                if (response.code() == 200) {
+                    listProductsMutableLiveData?.setValue(response.body()!!)
+
+                } else {
+                    Wron_Email=true
+                    listProductsMutableLiveData?.setValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<Register_Model>, t: Throwable) {
+                listProductsMutableLiveData?.setValue(null)
+
+            }
+        })
+    }
+    private fun getface(social_id: String?,email:String?,full_name:String?) {
+        var map= HashMap<String,String>()
+        map.put("social_id",social_id!!)
+        map.put("email",email!!)
+        map.put("full_name",full_name!!)
+
+
+        var service = ApiClient.getClient()?.create(Service::class.java)
+        val call = service?.userLoginFacebook(map)
 
 
         call?.enqueue(object : Callback, retrofit2.Callback<Register_Model> {

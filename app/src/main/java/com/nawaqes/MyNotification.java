@@ -12,9 +12,20 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.nawaqes.Model.CountNotifications_Response;
+import com.nawaqes.ViewModel.CountNotifications_ViewModel;
+
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 //import com.raaleat.R;
 
@@ -22,10 +33,11 @@ public class MyNotification {
 
     public static final int ID_SMALL_NOTIFICATION = 235;
     private Context mCtx;
-    public static Notification notification;
     public MyNotification(Context mCtx) {
         this.mCtx = mCtx;
     }
+    CountNotifications_ViewModel notifications;
+    Notification notification;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void showSmallNotification(String title, String message, Intent intent) {
@@ -74,7 +86,23 @@ public class MyNotification {
 //            e.printStackTrace();
 //        }
     }
+    private void getNewNotification() {
+        notifications= ViewModelProviders.of((FragmentActivity) mCtx).get(CountNotifications_ViewModel.class);
+        notifications.getData(SharedPrefManager.getInstance(mCtx).getDeviceToken(),mCtx)
+                .observe((LifecycleOwner) mCtx, new Observer<CountNotifications_Response>() {
+                    @Override
+                    public void onChanged(@Nullable CountNotifications_Response tripsData) {
+                        if(tripsData!=null) {
+                            if(tripsData.getData()!=0){
+                                ShortcutBadger.applyNotification(getApplicationContext(), notification, tripsData.getData());
 
+                            }
+                        }
+
+                    }
+                });
+
+    }
     public void showSmallNotificati(String title, String message, Intent intent) {
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
@@ -87,7 +115,6 @@ public class MyNotification {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             makeNotificationChannel("CHANNEL_1", "Example channel", NotificationManager.IMPORTANCE_DEFAULT);
             Notification.Builder mBuilder = new Notification.Builder(mCtx,"CHANNEL_1");
-            Notification notification;
             notification = mBuilder.setTicker(title).setWhen(0)
                     .setAutoCancel(true)
                     .setContentIntent(resultPendingIntent)
@@ -97,7 +124,6 @@ public class MyNotification {
                     .setContentText(message)
                     .setStyle(new Notification.BigTextStyle().bigText(message))
                     .build();
-
             try {
                 Uri notificatio = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 Ringtone r = RingtoneManager.getRingtone(mCtx, notificatio);
@@ -112,7 +138,6 @@ public class MyNotification {
 
         }else {
             Notification.Builder mBuilder = new Notification.Builder(mCtx);
-            Notification notification;
             notification = mBuilder.setTicker(title).setWhen(0)
                     .setAutoCancel(true)
                     .setContentIntent(resultPendingIntent)

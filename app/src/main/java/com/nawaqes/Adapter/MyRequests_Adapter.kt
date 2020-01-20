@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nawaqes.Activities.Request_Details
@@ -27,14 +28,14 @@ class MyRequests_Adapter  (context: Context, val data: List<Requests_Shortlists_
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: MyRequests_Adapter.ViewHolder, position: Int) {
-        holder.T_Request.text = context.getString(R.string.requestto)+" "+data.get(position).categoryName
-        val string =data.get(position).createdAt
-        val datee: String? =  string.substringBefore(" ")
+        holder.T_Request.setText( ""+data.get(position).categoryName)
+//        val string =data.get(position).createdAt
+//        val datee: String? =  string.substringBefore(" ")
 
-        holder.T_Date.text = context.getString(R.string.date)+" "+datee
-        holder.T_Accept.text =context.getString(R.string.acceptedby)+" "+ data.get(position).acceptedByShop
+        holder.T_Date.setText( ""+data.get(position).createdAt)
+        holder.T_Accept.setText(""+ data.get(position).acceptedByShop)
 
-        holder.itemView.setOnClickListener() {
+        holder.BTn_View.setOnClickListener() {
             val intent=Intent(context,Request_Details::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("item",data.get(position))
@@ -56,9 +57,10 @@ class MyRequests_Adapter  (context: Context, val data: List<Requests_Shortlists_
     //the class is hodling the list view
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val context: Context = itemView.context
-        var T_Request = itemView.findViewById(R.id.T_Request) as TextView
-        var T_Date = itemView.findViewById(R.id.T_Date) as TextView
-        var T_Accept = itemView.findViewById(R.id.T_Accept) as TextView
+        var T_Request = itemView.findViewById(R.id.T_Requestss) as TextView
+        var T_Date = itemView.findViewById(R.id.T_Dates) as TextView
+        var T_Accept = itemView.findViewById(R.id.T_Acceptss) as TextView
+        var BTn_View = itemView.findViewById(R.id.BTn_View) as Button
 
 
     }

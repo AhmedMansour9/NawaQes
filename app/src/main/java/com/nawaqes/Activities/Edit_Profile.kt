@@ -380,13 +380,14 @@ class Edit_Profile : AppCompatActivity() {
                 val filePath = getRealPathFromURIPath(contentURI!!, this@Edit_Profile)
                 file = File(filePath)
 //                Toast.makeText(this@Details_Product, file.name+"", Toast.LENGTH_SHORT).show()
+                Glide.with(this).load("file:" + file).into(Img_Profile);
 
                 try
                 {
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
                     val path = saveImage(bitmap)
 //                    Toast.makeText(this@Details_Product, path+"", Toast.LENGTH_SHORT).show()
-                    Img_Profile!!.setImageBitmap(bitmap)
+//                    Img_Profile!!.setImageBitmap(bitmap)
 
                 }
                 catch (e: IOException) {

@@ -18,6 +18,7 @@ class Cities_ViewModel : ViewModel() {
 
 
     fun getData( DeviceLang:String,context: Context): LiveData<Cities_Response> {
+        if(listProductsMutableLiveData==null)
         listProductsMutableLiveData = MutableLiveData<Cities_Response>()
         this.context = context
         getDataValues(DeviceLang)

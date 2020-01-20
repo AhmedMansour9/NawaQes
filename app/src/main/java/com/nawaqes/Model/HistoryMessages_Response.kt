@@ -49,6 +49,9 @@ data class HistoryMessages_Response(
             val lng: String,
             @SerializedName("name")
             val name: String,
+            @SerializedName("address")
+            val address: String,
+
             @SerializedName("phone")
             val phone: String,
             @SerializedName("premium")

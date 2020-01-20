@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/Rela_Border"
     android:layout_marginTop="@dimen/_8sdp"
     android:background="@drawable/item_backgroundrequest"
     android:layout_width="match_parent"
@@ -18,7 +19,7 @@
        >
 
         <ImageView
-            android:id="@+id/roundedImageView"
+            android:id="@+id/Img_Shop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -29,24 +30,48 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Title"
+        android:id="@+id/Tit"
         android:layout_toEndOf="@+id/card"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:textColor="#000"
         android:textSize="@dimen/_12sdp"
-        android:text=";kclkcwwsrwerl"
+        android:text="@string/requestto"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/address"
+        android:id="@+id/Title"
+        android:layout_toEndOf="@+id/Tit"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textColor="#000"
+        android:textSize="@dimen/_12sdp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addre"
+        android:maxLines="1"
+        android:text="@string/address"
         android:layout_toEndOf="@+id/card"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_below="@+id/Title"
         android:textColor="#cccccf"
-        android:text=";address"
+        android:textSize="@dimen/_9sdp"
+        />
+    <TextView
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_toEndOf="@+id/addre"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_below="@+id/Title"
+        android:textColor="#cccccf"
         android:textSize="@dimen/_9sdp"
         />
 
@@ -63,8 +88,8 @@
         />
 
     <ImageView
-        android:layout_width="@dimen/_23sdp"
-        android:layout_height="@dimen/_22sdp"
+        android:layout_width="@dimen/_19sdp"
+        android:layout_height="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_18sdp"
         android:src="@drawable/icon_bluephone"
         android:layout_marginEnd="@dimen/_10sdp"
@@ -72,9 +97,19 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         />
+
     <ImageView
-        android:layout_width="@dimen/_23sdp"
-        android:layout_height="@dimen/_22sdp"
+        android:layout_width="@dimen/_19sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:src="@drawable/star"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:id="@+id/Img_Star"
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        />
+    <ImageView
+        android:layout_width="@dimen/_19sdp"
+        android:layout_height="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_18sdp"
         android:src="@drawable/icon_bluechat"
         android:layout_marginEnd="@dimen/_10sdp"

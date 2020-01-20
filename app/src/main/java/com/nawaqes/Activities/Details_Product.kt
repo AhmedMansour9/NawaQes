@@ -16,10 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.nawaqes.Adapter.Slider_Adapter
-import com.nawaqes.Model.Banners_Response
 import com.nawaqes.R
-import com.nawaqes.ViewModel.Cities_ViewModel
-import com.nawaqes.ViewModel.SliderHome_ViewModel
 import kotlinx.android.synthetic.main.activity_details__product.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,16 +32,19 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.nawaqes.Model.AddRequest_Response
-import com.nawaqes.Model.Register_Model
-import com.nawaqes.ViewModel.AddReques_ViewModel
-import com.nawaqes.ViewModel.Register_ViewModel
+import com.nawaqes.Adapter.Offers_Adapter
+import com.nawaqes.Model.*
+import com.nawaqes.SharedPrefManager
+import com.nawaqes.ViewModel.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_register.Btn_login
 import kotlinx.android.synthetic.main.activity_register.progressBarLogin
@@ -80,7 +80,7 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
         getSlider()
         Choose_Image()
         Send_Request()
-//        setupPermissions()
+        getNews()
         openHelp()
 
     }
@@ -98,6 +98,8 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
             if(isConnected){
                 var RequestViewModel =  ViewModelProvider.NewInstanceFactory().create(
                     AddReques_ViewModel::class.java)
+                var areaaid:String?= SharedPrefManager.getInstance(this).areaId
+
                 progressBarLogin.visibility= View.VISIBLE
                 if(!E_Message.text.toString().isEmpty()) {
                     Btn_Send.isEnabled=false
@@ -110,7 +112,7 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
                             file,
                             E_Message.text.toString(),
                             Home.CityId!!,
-                            Home.StateId!!,
+                            areaaid!!,
                             Cat_Id.toString(),
                             Sub_Id.toString(),
                             UserToken,
@@ -118,8 +120,12 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
                         ).observe(this,
                             Observer<AddRequest_Response> { loginmodel ->
                                 Btn_Send.isEnabled = true
+                                E_Message.setText(null)
+                                Img_ShowCamera.setImageBitmap(null);
+                                Img_ShowCamera.setImageResource(0)
                                 progressBarLogin.visibility = View.GONE
                                 if (loginmodel != null) {
+
                                     Toast.makeText(
                                         this,
                                         resources.getString(R.string.requestsent),
@@ -130,7 +136,7 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
                                 }
                             })
                 }else{
-                    Toast.makeText(this,"Please Make Sure that you Enter description",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Empty Message",Toast.LENGTH_LONG).show()
 
                 }
             }else {
@@ -356,6 +362,26 @@ class Details_Product : AppCompatActivity() , ActivityCompat.OnRequestPermission
 
                 }
             }
+        }
+    }
+
+    private fun getNews() {
+        this.applicationContext?.let {
+           var news= ViewModelProvider.NewInstanceFactory().create(
+                News_ViewModel::class.java)
+            news.getNews(Cat_Id.toString(),UserToken,"en", it).observe(this,
+                Observer<News_Response> { loginmodel ->
+                    if(loginmodel!=null) {
+                            loginmodel.data.forEachIndexed { index, element ->
+                                T_News.append(" "+loginmodel.data.get(index).title+" -")
+                            }
+                            T_News.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                            T_News.setMarqueeRepeatLimit(-1);
+                            T_News.setSingleLine(true);
+                            T_News.setSelected(true);
+                    }
+
+                })
         }
     }
             }
